@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.plant.CapitalWin">
+  <children>
+    <MenuBar fx:id="header_menb" VBox.vgrow="NEVER">
+      <menus>
+        <Menu fx:id="htask_menb" mnemonicParsing="false" text="Задача">
+          <items>
+            <MenuItem fx:id="create_menb" mnemonicParsing="false" text="Создать" />
+            <MenuItem fx:id="plan_menb" mnemonicParsing="false" text="Планировать" />
+          </items>
+        </Menu>
+        <Menu fx:id="henter_menb" mnemonicParsing="false" text="Вход">
+          <items>
+            <MenuItem fx:id="registr_menb" mnemonicParsing="false" text="Регистрация" />
+            <MenuItem fx:id="enter_menb" mnemonicParsing="false" text="Вход" />
+            <MenuItem fx:id="exit_menb" mnemonicParsing="false" text="Выход" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane fx:id="base_ap" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="table_tview" layoutX="13.0" layoutY="1.0" prefHeight="304.0" prefWidth="613.0">
+              <columns>
+                  <TableColumn fx:id="idColumn" text="ID"/>
+                  <TableColumn fx:id="nameColumn" text="Name"/>
+                  <TableColumn fx:id="textColumn" text="Text"/>
+                  <TableColumn fx:id="deadlineColumn" text="Deadline"/>
+                  <TableColumn fx:id="createdTask" text="CreatedTask"/>
+                  <TableColumn fx:id="statusTask" text="StatusTask"/>
+                  <TableColumn fx:id="execTask" text="ExecTask"/>
+                  <TableColumn fx:id="lastCorrectTask" text="LastCorrectTask"/>
+                  <TableColumn fx:id="assignedTask" text="AssignedTask"/>
+                  <TableColumn fx:id="dependenciesTask" text="DependenciesTask"/>
+              </columns>
+            </TableView>
+             <Button fx:id="prior_bt" layoutX="136.0" layoutY="321.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" text="Статус" />
+             <Button fx:id="update_bt" layoutX="381.0" layoutY="321.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Обновить" />
+             <Button fx:id="dethline_bt" layoutX="259.0" layoutY="321.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Срок" />
+             <Button fx:id="exec_bt" layoutX="14.0" layoutY="321.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="112.0" text="Создатель" />
+             <Button fx:id="del_bt" layoutX="503.0" layoutY="321.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="113.0" text="Удалить" />
+         </children></AnchorPane>
+      <HBox prefHeight="100.0" prefWidth="200.0" />
+  </children>
+</VBox>

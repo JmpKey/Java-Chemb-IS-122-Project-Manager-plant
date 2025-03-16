@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.plant.ProvinceUpTime">
+   <children>
+      <TextField fx:id="dat1_tf" layoutX="22.0" layoutY="11.0" prefHeight="28.0" prefWidth="38.0" />
+      <Button fx:id="ok_but" layoutX="262.0" layoutY="12.0" mnemonicParsing="false" text="OK" />
+      <TextField fx:id="dat2_tf" layoutX="70.0" layoutY="11.0" prefHeight="28.0" prefWidth="38.0" />
+      <TextField fx:id="dat3_tf" layoutX="118.0" layoutY="11.0" prefHeight="28.0" prefWidth="38.0" />
+      <TextField fx:id="time1_tf" layoutX="166.0" layoutY="11.0" prefHeight="28.0" prefWidth="38.0" />
+      <TextField fx:id="time2_tf" layoutX="214.0" layoutY="11.0" prefHeight="28.0" prefWidth="38.0" />
+      <Label fx:id="t1_lab" layoutX="64.0" layoutY="25.0" text="." />
+      <Label fx:id="t2_lab" layoutX="111.0" layoutY="25.0" text="." />
+      <Label fx:id="t3_lab" layoutX="159.0" layoutY="26.0" text="." />
+      <Label fx:id="t4_lab" layoutX="208.0" layoutY="15.0" text=":" />
+   </children>
+</AnchorPane>

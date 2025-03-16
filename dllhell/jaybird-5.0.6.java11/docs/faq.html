@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="keywords" content="jaybird, firebird, jdbc, sql, database, java">
+<title>Jaybird Frequently Asked Questions</title>
+<style>
+/*! Firebird documentation stylesheet, derived from Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic|Noto+Serif:400,400italic,700,700italic|Droid+Sans+Mono:400,700&display=swap);
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:rgba(0,0,0,.85);font-weight:normal;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,h7,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,h7{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:bold;font-style:normal;color:rgba(0,0,0,.85);text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small,h7 small{font-size:60%;color:rgba(77,77,77,.85);line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6,h7{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:normal;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,h7{line-height:1.2}
+    h1{font-size:2.75em}
+    h2{font-size:2.3125em}
+    h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+    h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#FFEFD5}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,h7{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong,h7 strong{font-weight:bold}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre,h1,h2,h3,#toctitle,h4,h5,h6,h7):not([class^=L])>code{font-size:.9375em;font-style:normal!important;background:inherit;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:normal}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:normal}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#preheader>div.fb-logo,#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:1.25em;padding-right:1.25em}
+#preheader>div.fb-logo:before,#preheader > div.fb-logo:after,#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#preheader>div.fb-logo:after,#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:rgba(0,0,0,.85);font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+    body.toc2{padding-left:15em;padding-right:0}
+    #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+    #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+    #toc.toc2>ul{font-size:.9em;margin-bottom:0}
+    #toc.toc2 ul ul{margin-left:0;padding-left:1em}
+    #toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+    body.toc2.toc-right{padding-left:0;padding-right:15em}
+    body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+    #toc.toc2{width:20em}
+    #toc.toc2 #toctitle{font-size:1.375em}
+    #toc.toc2>ul{font-size:.95em}
+    #toc.toc2 ul ul{padding-left:1.25em}
+    body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+    .sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor,h7>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:normal}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before,h7>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover,h7:hover>a.anchor,h7>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link,h7>a.link{color:rgba(0,0,0,.85);text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover,h7>a.link:hover{color:rgba(0,0,0,.85)}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1.0625rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:rgba(0,0,0,.85);margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#FFFFF7}
+.literalblock.output pre{color:#FFFFF7;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#FFFFF7}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:rgba(0,0,0,.85);text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+table.stripes-none>*>tr{background:none}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#FFEFD5}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+dl dt code{font-weight:bold}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:normal;font-style:normal}
+.unstyled dl dt code{font-weight:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+h1 code,h2 code,h3 code,#toctitle code,.sidebarblock>.content>.title code,h4 code,h5 code,h6 code,h7 code{font-size:inherit}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+div.sect1,div.sect2,div.sect3,div.sect4,div.sect5,div.sect6{margin-top:2em}
+div#preheader>div.fb-docindex table{background-color:#f8f8f7;width:100%}
+div#preheader table{border:none}
+#tocbot{overflow-y:auto}
+#tocbot>.toc-list{overflow:hidden;position:relative}
+#tocbot>.toc-list li{list-style:none}
+#tocbot .toc-list{margin:0;padding-left:10px}
+@media screen {#tocbot a.toc-link{height:100%}
+    #tocbot .is-collapsible{overflow:hidden}
+    #tocbot .is-collapsed{max-height:0}
+    #tocbot .is-position-fixed{position:fixed!important;top:0}
+    #tocbot .is-active-link{font-weight:700}
+    #tocbot .toc-link::before{background-color:#EEE;content:' ';display:inline-block;height:inherit;left:0;margin-top:-1px;position:absolute;width:2px}
+    #tocbot .is-active-link::before{background-color:#54BC4B}}
+@media print{#tocbot #tocbot a.toc-link.node-name--H4{display:none}}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+    html{font-size:80%}
+    a{color:inherit!important;text-decoration:underline!important}
+    a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+    a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+    abbr[title]{border-bottom:1px dotted}
+    abbr[title]::after{content:" (" attr(title) ")"}
+    pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+    thead{display:table-header-group}
+    svg{max-width:100%}
+    p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+    h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+    #header,#content,#footnotes,#footer{max-width:none}
+    #toc,.sidebarblock,.exampleblock>.content{background:none!important}
+    #toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+    body.book #header{text-align:center}
+    body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+    body.book #header .details{border:0!important;display:block;padding:0!important}
+    body.book #header .details span:first-child{margin-left:0!important}
+    body.book #header .details br{display:block}
+    body.book #header .details br+span::before{content:none!important}
+    body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+    body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+    .listingblock code[data-lang]::before{display:block}
+    #footer{padding:0 1.25em}
+    .hide-on-print{display:none!important}
+    .print-only{display:block!important}
+    .hide-for-print{display:none!important}
+    .show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+    .sect1{padding:0!important}
+    .sect1+.sect1{border:0}
+    #footer{background:none}
+    #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+<link rel="canonical" href="https://firebirdsql.org/docs/drivers/java/faq.html"/>
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<h1>Jaybird Frequently Asked Questions</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel0">
+<li><a href="#jaybird">Jaybird</a>
+<ul class="sectlevel1">
+<li><a href="#where-do-i-get-jaybird">1. Where do I get Jaybird?</a>
+<ul class="sectlevel2">
+<li><a href="#maven">1.1. Maven</a></li>
+<li><a href="#download">1.2. Download</a></li>
+</ul>
+</li>
+<li><a href="#where-can-i-get-the-sourcecode">2. Where can I get the sourcecode?</a></li>
+<li><a href="#how-is-jaybird-licensed">3. How is Jaybird licensed?</a>
+<ul class="sectlevel2">
+<li><a href="#which-version-of-the-lgpl-applies">3.1. Which version of the LGPL applies?</a></li>
+</ul>
+</li>
+<li><a href="#which-java-versions-are-supported">4. Which Java versions are supported?</a></li>
+<li><a href="#what-is-the-java-9-module-name-for-jaybird">5. What is the Java 9 module name for Jaybird?</a></li>
+<li><a href="#which-firebird-versions-are-supported">6. Which Firebird versions are supported?</a></li>
+<li><a href="#can-jaybird-connect-to-interbase">7. Can Jaybird connect to Interbase?</a></li>
+<li><a href="#_can_jaybird_be_used_on_android">8. Can Jaybird be used on Android</a></li>
+</ul>
+</li>
+<li><a href="#documentation-and-support">Documentation and Support</a>
+<ul class="sectlevel1">
+<li><a href="#where-to-get-more-information-on-jaybird">9. Where to get more information on Jaybird</a></li>
+<li><a href="#where-to-get-help">10. Where to get help</a></li>
+<li><a href="#contributing">11. Contributing</a></li>
+<li><a href="#reporting-bugs">12. Reporting Bugs</a></li>
+</ul>
+</li>
+<li><a href="#connecting-to-firebird">Connecting to Firebird</a>
+<ul class="sectlevel1">
+<li><a href="#jdbc-urls-java.sql.DriverManager">13. JDBC URLs (<code>java.sql.DriverManager</code>)</a>
+<ul class="sectlevel2">
+<li><a href="#pure-java-default">13.1. Pure Java (default)</a></li>
+<li><a href="#open-officelibre-office-pure-java">13.2. Open Office/Libre Office (Pure Java)</a></li>
+<li><a href="#native-using-firebird-client-library">13.3. Native (using Firebird client library)</a></li>
+<li><a href="#embedded-server">13.4. Embedded Server</a></li>
+</ul>
+</li>
+<li><a href="#character-sets">14. Character sets</a>
+<ul class="sectlevel2">
+<li><a href="#how-can-i-specify-the-connection-character-set">14.1. How can I specify the connection character set?</a></li>
+<li><a href="#how-does-character-set-none-work">14.2. How does character set <code>NONE</code> work?</a></li>
+<li><a href="#what-happens-if-no-connection-character-set-is-specified">14.3. What happens if no connection character set is specified?</a></li>
+<li><a href="#how-can-i-solve-the-error-connection-rejected-no-connection-character-set-specified">14.4. How can I solve the error "Connection rejected: No connection character set specified"</a></li>
+</ul>
+</li>
+<li><a href="#how-can-i-enable-the-windows-tcp-loopback-fast-path-introduced-in-firebird-3-0-2">15. How can I enable the Windows "TCP Loopback Fast Path" introduced in Firebird 3.0.2?</a></li>
+<li><a href="#common-connection-errors">16. Common connection errors</a>
+<ul class="sectlevel2">
+<li><a href="#your-user-name-and-password-are-not-defined-ask-your-database-administrator-to-set-up-a-firebird-login.-335544472">16.1. Your user name and password are not defined. Ask your database administrator to set up a Firebird login. (335544472)</a></li>
+<li><a href="#incompatible-wire-encryption-levels-requested-on-client-and-server-335545064">16.2. Incompatible wire encryption levels requested on client and server (335545064)</a></li>
+<li><a href="#connection-rejected-by-remote-interface-335544421">16.3. connection rejected by remote interface (335544421)</a></li>
+<li><a href="#error-occurred-during-login-please-check-server-firebird-log-for-details-335545106">16.4. Error occurred during login, please check server firebird.log for details (335545106)</a></li>
+<li><a href="#encryption-key-did-not-meet-algorithm-requirements-of-symmetricarc4-337248282">16.5. Encryption key did not meet algorithm requirements of Symmetric/Arc4 (337248282)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#jdbc-support">JDBC Support</a>
+<ul class="sectlevel1">
+<li><a href="#how-much-of-jdbc-is-supported-by-jaybird">17. How much of JDBC is supported by Jaybird?</a></li>
+<li><a href="#what-parts-of-jdbc-are-not-supported-by-jaybird">18. What parts of JDBC are NOT supported by Jaybird?</a></li>
+</ul>
+</li>
+<li><a href="#features">Features</a>
+<ul class="sectlevel1">
+<li><a href="#does-jaybird-support-connection-pooling">19. Does Jaybird support connection pooling?</a></li>
+</ul>
+</li>
+<li><a href="#compatibility-notes">Compatibility notes</a>
+<ul class="sectlevel1">
+<li><a href="#wildfly">20. Wildfly</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<h1 id="jaybird" class="sect0"><a class="anchor" href="#jaybird"></a>Jaybird</h1>
+<div class="sect1">
+<h2 id="where-do-i-get-jaybird"><a class="anchor" href="#where-do-i-get-jaybird"></a>1. Where do I get Jaybird?</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="maven"><a class="anchor" href="#maven"></a>1.1. Maven</h3>
+<div class="sect3">
+<h4 id="jaybird-5"><a class="anchor" href="#jaybird-5"></a>1.1.1. Jaybird 5</h4>
+<div class="paragraph">
+<p>Jaybird 5 is available on Maven Central:</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+groupId
+</td>
+<td class="hdlist2">
+<p><code>org.firebirdsql.jdbc</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+artifactId
+</td>
+<td class="hdlist2">
+<p><code>jaybird</code>,</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+version
+</td>
+<td class="hdlist2">
+<p><code>5.0.6.&lt;java&gt;</code> (where <code>&lt;java&gt;</code> is <code>java11</code> or <code>java8</code>)</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Contrary to Jaybird 4, a Maven relocation artifact with artifact id <code>jaybird-XX</code> (with <code>XX</code> <code>jdk17</code>, <code>jdk18</code>) is no longer provided.
+Please make sure you use the <code>jaybird</code> artifactId.</p>
+</div>
+<div class="paragraph">
+<p>For example, for Java 11:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.firebirdsql.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;jaybird&lt;/artifactId&gt;
+    &lt;version&gt;5.0.6.java11&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to use Type 2 support (native or embedded), you need to explicitly include JNA 5.15.0 as a dependency:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;net.java.dev.jna&lt;/groupId&gt;
+    &lt;artifactId&gt;jna&lt;/artifactId&gt;
+    &lt;version&gt;5.15.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="jaybird-4"><a class="anchor" href="#jaybird-4"></a>1.1.2. Jaybird 4</h4>
+<div class="paragraph">
+<p>Jaybird 4 is end-of-life and will receive no further updates.
+We recommend upgrading to <a href="#jaybird-5">Jaybird 5</a>.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 4 is available from Maven Central:</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+groupId
+</td>
+<td class="hdlist2">
+<p><code>org.firebirdsql.jdbc</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+artifactId
+</td>
+<td class="hdlist2">
+<p><code>jaybird</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+version
+</td>
+<td class="hdlist2">
+<p><code>4.0.10.&lt;java&gt;</code> (where <code>&lt;java&gt;</code> is <code>java11</code>, <code>java8</code> or <code>java7</code>)</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For backwards compatibility, we also provide a Maven relocation artifact with artifact id <code>jaybird-XX</code> (with <code>XX</code> <code>jdk17</code> or <code>jdk18</code>.
+However, we recommend switching to the <code>jaybird</code> artifact.</p>
+</div>
+<div class="paragraph">
+<p>For example, for Java 11:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.firebirdsql.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;jaybird&lt;/artifactId&gt;
+    &lt;version&gt;4.0.10.java11&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If your application is deployed to a Java EE application server, you will need to exclude the <code>javax.resource:connector-api</code> dependency, and add it as a provided dependency:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.firebirdsql.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;jaybird&lt;/artifactId&gt;
+    &lt;version&gt;4.0.10.java11&lt;/version&gt;
+    &lt;exclusions&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;javax.resource&lt;/groupId&gt;
+            &lt;artifactId&gt;connector-api&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;javax.resource&lt;/groupId&gt;
+    &lt;artifactId&gt;connector-api&lt;/artifactId&gt;
+    &lt;version&gt;1.5&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to use Type 2 support (native, local or embedded), you need to explicitly include JNA 5.5.0 as a dependency:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;net.java.dev.jna&lt;/groupId&gt;
+    &lt;artifactId&gt;jna&lt;/artifactId&gt;
+    &lt;version&gt;5.5.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="jaybird-3-0"><a class="anchor" href="#jaybird-3-0"></a>1.1.3. Jaybird 3</h4>
+<div class="paragraph">
+<p><a name="jaybird-3.0"></a></p>
+</div>
+<div class="paragraph">
+<p>Jaybird 3 is end-of-life and will receive no further updates.
+We recommend upgrading to <a href="#jaybird-5">Jaybird 5</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="jaybird-2-2"><a class="anchor" href="#jaybird-2-2"></a>1.1.4. Jaybird 2.2</h4>
+<div class="paragraph">
+<p>Jaybird 2.2 is end-of-life and will receive no further updates.
+We recommend upgrading to <a href="#jaybird-5">Jaybird 5</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="download"><a class="anchor" href="#download"></a>1.2. Download</h3>
+<div class="paragraph">
+<p>Jaybird can be downloaded from the Firebird website, under Downloads, <a href="https://firebirdsql.org/en/jdbc-driver/">JDBC Driver</a>.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can go directly to GitHub and download Jaybird from the <a href="https://github.com/FirebirdSQL/jaybird/releases">jaybird releases</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="where-can-i-get-the-sourcecode"><a class="anchor" href="#where-can-i-get-the-sourcecode"></a>2. Where can I get the sourcecode?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All Jaybird distribution zips contain a <code>jaybird-&lt;version&gt;-sources.zip</code> with the sources used for that specific version.
+The full Jaybird sourcecode is also available from GitHub in the jaybird repository:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/FirebirdSQL/jaybird" class="bare">https://github.com/FirebirdSQL/jaybird</a></p>
+</div>
+<div class="paragraph">
+<p>Each release is also tagged in the repository.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-is-jaybird-licensed"><a class="anchor" href="#how-is-jaybird-licensed"></a>3. How is Jaybird licensed?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jaybird JDBC driver is distributed under the GNU Lesser General Public License (LGPL).
+Text of the license can be obtained from <a href="http://www.gnu.org/copyleft/lesser.html" class="bare">http://www.gnu.org/copyleft/lesser.html</a>.</p>
+</div>
+<div class="paragraph">
+<p>Using Jaybird (by importing Jaybird&#8217;s public interfaces in your Java code), and extending Jaybird by subclassing or implementation of an extension interface (but not abstract or concrete class) is considered by the authors of Jaybird to be dynamic linking.
+Hence, our interpretation of the LGPL is that the use of the unmodified Jaybird source does not affect the license of your application code.</p>
+</div>
+<div class="paragraph">
+<p>Even more, all extension interfaces to which an application might want to link are released under dual LGPL/modified BSD license.
+The latter is basically an "AS IS" license that allows any kind of use of that source code.
+Jaybird should be viewed as an implementation of those interfaces and the LGPL section for dynamic linking is applicable in this case.</p>
+</div>
+<div class="sect2">
+<h3 id="which-version-of-the-lgpl-applies"><a class="anchor" href="#which-version-of-the-lgpl-applies"></a>3.1. Which version of the LGPL applies?</h3>
+<div class="paragraph">
+<p>Current releases of Jaybird do not explicitly specify an LGPL version.
+This means that you can choose which version applies.
+Future versions of Jaybird may specify an explicit version, or be released under a different license.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="which-java-versions-are-supported"><a class="anchor" href="#which-java-versions-are-supported"></a>4. Which Java versions are supported?</h2>
+<div class="sectionbody">
+<h3 id="java-jaybird-5" class="discrete">Jaybird 5</h3>
+<div class="paragraph">
+<p>Jaybird 5 supports Java 8, 11, 17 and 21.
+Support for Java 9 and higher is limited to Java 8, 11, 17, 21 and the most recent LTS version after Java 21 and the latest Java release.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 5 is the last version to support Java 8 and 11, support will be dropped with Jaybird 6, raising the minimum supported version to Java 17.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Jaybird 5 will serve as a form of long-term support for Java 8 and 11, with maintenance releases guaranteed at least until the release of Jaybird 7.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://github.com/FirebirdSQL/jaybird/blob/master/devdoc/jdp/jdp-2022-03-java-17-minimum-version.md">jdp-2022-03: Java 17 minimum version</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<h3 id="java-jaybird-4" class="discrete">Jaybird 4</h3>
+<div class="paragraph">
+<p>Jaybird 4 supports Java 7, 8, 11, 17 and 21.
+Support for Java 9 and higher is limited to Java 11, 17 and 21.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 4 is the last version to support Java 7, support will be dropped with Jaybird 5.
+Jaybird 4.0.10 is the last release of Jaybird 4, and is end-of-life.
+We recommend upgrading to Jaybird 5.</p>
+</div>
+<h3 id="java-jaybird-3-0" class="discrete">Jaybird 3</h3>
+<div class="paragraph">
+<p>Jaybird 3 supports Java 7 and 8 and has basic support for Java 9 and higher using the Java 8 version of the driver.
+Support for Java 9 and higher is limited to Java 11 and 17, but in practice Jaybird should work on all Java 9+ versions upto Java 17 (versions after Java 17 have not been tested).
+Jaybird 3.0.12 is the last release of Jaybird 3, and is end-of-life.
+We recommend upgrading to Jaybird 5.</p>
+</div>
+<h3 id="java-jaybird-2-2" class="discrete">Jaybird 2.2</h3>
+<div class="paragraph">
+<p>Jaybird 2.2 supports Java 6, 7 and 8.
+Jaybird 2.2.15 is that last release of Jaybird 2.2, and is end-of-life.
+We recommend upgrading to Jaybird 5.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 2.2.4 added basic support for Java 8 (JDBC 4.2), although not all JDBC 4.2 features are supported or fully implemented.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 2.2.7 is the last version to support Java 5, support has been dropped with Jaybird 2.2.8.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 2.2 is the last version to support Java 6, support has been dropped with Jaybird 3.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-is-the-java-9-module-name-for-jaybird"><a class="anchor" href="#what-is-the-java-9-module-name-for-jaybird"></a>5. What is the Java 9 module name for Jaybird?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jaybird itself is not (yet) modularized.
+To ensure a stable module name, Jaybird, since 2.2.14 and 3.0.3, declares the automatic module name <code>org.firebirdsql.jaybird</code>.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 6 will be modular.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="which-firebird-versions-are-supported"><a class="anchor" href="#which-firebird-versions-are-supported"></a>6. Which Firebird versions are supported?</h2>
+<div class="sectionbody">
+<h3 id="firebird-jaybird-5" class="discrete">Jaybird 5</h3>
+<div class="paragraph">
+<p>Jaybird 5 supports Firebird version 2.5, 3.0, 4.0, and 5.0.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 5 is the last version to support Firebird 2.5.
+Future versions of Jaybird are not guaranteed to work with version 2.5 and earlier.</p>
+</div>
+<h3 id="firebird-jaybird-4" class="discrete">Jaybird 4</h3>
+<div class="paragraph">
+<p>Jaybird 4 supports Firebird version 2.5, 3.0 and 4.0, and introduces support for Firebird 4.0 types <code>DECLOAT</code>, extended precision of <code>NUMERIC</code> and <code>DECIMAL</code>, and time zone types (<code>TIME WITH TIME ZONE</code> and <code>TIMESTAMP WITH TIME ZONE</code>).</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 4 only provides partial support for Firebird 5.0, and the generated-keys support does not work in all cases due to Firebird 5.0 now supporting multi-row <code>RETURNING</code>.
+Full Firebird 5.0 support is available in Jaybird 5.</p>
+</div>
+<h3 id="firebird-jaybird-3-0" class="discrete">Jaybird 3</h3>
+<div class="paragraph">
+<p>Jaybird 3 supports Firebird versions 2.0 - 4.0.
+Support for Firebird 4.0 is limited to the Firebird 3.0 feature set.
+Formally, Firebird 5.0 is not supported, though in practice the problems are similar as for Jaybird 4.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 3 is the last version to support Firebird 2.0 and 2.1.
+Future versions of Jaybird are not guaranteed to work with version 2.1 and earlier.</p>
+</div>
+<h3 id="firebird-jaybird-2-2" class="discrete">Jaybird 2.2</h3>
+<div class="paragraph">
+<p>Jaybird 2.2 supports Firebird versions 1.0 - 4.0.
+Jaybird 2.2.4 added support for new features of Firebird 3.0 (e.g. <code>BOOLEAN</code> support).
+Support for Firebird 4.0 is limited to the Firebird 3.0 feature set.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 2.2 is the last version to support Firebird 1.0 and 1.5.
+Future versions of Jaybird are not guaranteed to work with these versions.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="can-jaybird-connect-to-interbase"><a class="anchor" href="#can-jaybird-connect-to-interbase"></a>7. Can Jaybird connect to Interbase?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jaybird does not support Interbase, and as far as we know connecting to Interbase 6.0 and later will fail due to Firebird specific changes in the implementation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_can_jaybird_be_used_on_android"><a class="anchor" href="#_can_jaybird_be_used_on_android"></a>8. Can Jaybird be used on Android</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jaybird does not work on Android.
+It uses classes and Java features which are not available on Android.</p>
+</div>
+<div class="paragraph">
+<p>Instead, we recommend building a webservice (e.g. REST-based) to mediate between your Android application and the database.</p>
+</div>
+</div>
+</div>
+<h1 id="documentation-and-support" class="sect0"><a class="anchor" href="#documentation-and-support"></a>Documentation and Support</h1>
+<div class="sect1">
+<h2 id="where-to-get-more-information-on-jaybird"><a class="anchor" href="#where-to-get-more-information-on-jaybird"></a>9. Where to get more information on Jaybird</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apart from this FAQ, you can get additional information from:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://firebirdsql.github.io/jaybird-manual/jaybird_manual.html">Jaybird JDBC Driver Java Programmer&#8217;s Manual</a> (HTML, <a href="https://firebirdsql.github.io/jaybird-manual/jaybird_manual.pdf">PDF version</a>) (covers Jaybird 2.2 and higher)</p>
+</li>
+<li>
+<p><a href="https://firebirdsql.org/en/devel-jdbc-driver/">Firebird Website: Development, JDBC Driver</a></p>
+</li>
+<li>
+<p><a href="https://github.com/FirebirdSQL/jaybird/wiki/">Jaybird wiki</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For version specific details, consult the release notes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://firebirdsql.org/file/documentation/drivers_documentation/java/5.0.x/release_notes.html">Jaybird 5.0.x release notes</a></p>
+</li>
+<li>
+<p><a href="https://firebirdsql.org/file/documentation/drivers_documentation/java/4.0.x/release_notes.html">Jaybird 4.0.x release notes</a></p>
+</li>
+<li>
+<p><a href="https://firebirdsql.org/file/documentation/drivers_documentation/java/3.0.x/release_notes.html">Jaybird 3.0.x release notes</a></p>
+</li>
+<li>
+<p><a href="https://firebirdsql.org/file/documentation/drivers_documentation/java/2.2.x/release_notes.html">Jaybird 2.2.x release notes</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="where-to-get-help"><a class="anchor" href="#where-to-get-help"></a>10. Where to get help</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>On <a href="https://stackoverflow.com/">Stack Overflow</a>, please tag your questions with <em>jaybird</em> and <em>firebird</em></p>
+</li>
+<li>
+<p>The <a href="https://groups.google.com/g/firebird-java">Firebird-Java group</a> and corresponding mailing list <a href="mailto:firebird-java@googlegroups.com">firebird-java@googlegroups.com</a></p>
+<div class="paragraph">
+<p>You can subscribe to the mailing list by sending an email to <a href="mailto:firebird-java+subscribe@googlegroups.com">firebird-java+subscribe@googlegroups.com</a></p>
+</div>
+</li>
+<li>
+<p>Looking for professional support of Jaybird?
+Jaybird is now part of the <a href="https://tidelift.com/subscription/pkg/maven-org-firebirdsql-jdbc-jaybird?utm_source=maven-org-firebirdsql-jdbc-jaybird&amp;utm_medium=referral&amp;utm_campaign=docs">Tidelift subscription</a>.</p>
+</li>
+<li>
+<p>The <a href="https://firebirdsql.org">Firebird project home page</a></p>
+</li>
+<li>
+<p>Firebird support and other <a href="https://firebirdsql.org/en/mailing-lists/">Firebird mailing lists</a> for questions not directly related to Jaybird and java.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributing"><a class="anchor" href="#contributing"></a>11. Contributing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are several ways you can contribute to Jaybird or Firebird in general:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Participate on the mailing lists (see <a href="https://firebirdsql.org/en/mailing-lists/" class="bare">https://firebirdsql.org/en/mailing-lists/</a>)</p>
+</li>
+<li>
+<p>Report bugs or submit patches on the tracker (see <a href="#reporting-bugs">Reporting Bugs</a>)</p>
+</li>
+<li>
+<p>Create pull requests on GitHub (<a href="https://github.com/FirebirdSQL/jaybird" class="bare">https://github.com/FirebirdSQL/jaybird</a>)</p>
+</li>
+<li>
+<p>Become a developer (for Jaybird contact us on firebird-java, for Firebird in general, use the Firebird-devel mailing list)</p>
+</li>
+<li>
+<p>Donate to the Firebird Foundation (see <a href="https://firebirdsql.org/en/donate/" class="bare">https://firebirdsql.org/en/donate/</a>)</p>
+</li>
+<li>
+<p>Become a paying member or sponsor of the Firebird Foundation (see <a href="https://firebirdsql.org/en/firebird-foundation/" class="bare">https://firebirdsql.org/en/firebird-foundation/</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reporting-bugs"><a class="anchor" href="#reporting-bugs"></a>12. Reporting Bugs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The developers follow the <a href="https://groups.google.com/g/firebird-java">firebird-java Google Group</a>.
+Join the list and post information about suspected bugs.
+List members may be able to help out to determine if it is an actual bug, provide a workaround and get you going again, whereas bug fixes might take a while.</p>
+</div>
+<div class="paragraph">
+<p>You can report bugs in the Jaybird bug tracker, <a href="https://github.com/FirebirdSQL/jaybird/issues/" class="bare">https://github.com/FirebirdSQL/jaybird/issues/</a>.</p>
+</div>
+<div class="paragraph">
+<p>When reporting bugs, please provide a minimal, but complete reproduction, including databases and sourcecode to reproduce the problem.
+Patches to fix bugs are also appreciated.
+Make sure the patch is against a recent master version of the code.
+You can also fork the jaybird repository and create pull requests.</p>
+</div>
+</div>
+</div>
+<h1 id="connecting-to-firebird" class="sect0"><a class="anchor" href="#connecting-to-firebird"></a>Connecting to Firebird</h1>
+<div class="sect1">
+<h2 id="jdbc-urls-java.sql.DriverManager"><a class="anchor" href="#jdbc-urls-java.sql.DriverManager"></a>13. JDBC URLs (<code>java.sql.DriverManager</code>)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="pure-java-default"><a class="anchor" href="#pure-java-default"></a>13.1. Pure Java (default)</h3>
+<div class="paragraph">
+<p>Default URL format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebirdsql://host[:port]/&lt;database&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will connect to the database using the Type 4 JDBC driver using the Java implementation of the Firebird wire-protocol.
+This is best suited for client-server applications with dedicated database server.
+Port can be omitted (default value is <code>3050</code>), host name must be present.</p>
+</div>
+<div class="paragraph">
+<p>The <code>&lt;host&gt;</code> part is either the hostname, the IPv4 address, or the IPv6 address  in brackets (eg <code>[::1]</code>).
+Use of IPv6 address literals is only supported in  Jaybird 3 or newer with Firebird 3 or newer.</p>
+</div>
+<div class="paragraph">
+<p>The <code>&lt;database&gt;</code> part should be replaced with the database alias or the path to the database.
+In general, it is advisable to use database aliases instead of the path of the database file as it hides implementation details like file locations and OS type.</p>
+</div>
+<div class="paragraph">
+<p>On Linux the root <code>/</code> should be included in the path.
+A database located on <code>/opt/firebird/db.fdb</code> should use (note the double slash after port!):</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebirdsql://host:port//opt/firebird/db.fdb</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Deprecated, but still supported legacy URL format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebirdsql:host[/port]:&lt;database&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The legacy URL format does not support IPv6 address literals.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 4 and higher also support:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebird://host[:port]/&lt;database&gt;
+jdbc:firebird:host[/port]:&lt;database&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="open-officelibre-office-pure-java"><a class="anchor" href="#open-officelibre-office-pure-java"></a>13.2. Open Office/Libre Office (Pure Java)</h3>
+<div class="paragraph">
+<p>Jaybird 5 and earlier can be used together with OpenOffice and LibreOffice Base.
+To address some compatibility issues (and differences in interpretation of JDBC specifications) a separate sub-protocol is used:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebirdsql:oo://host[:port]/&lt;database&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jaybird 4 and higher also support:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebird:oo://host[:port]/&lt;database&gt;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This URL format is deprecated with jaybird 5 and will be removed in Jaybird 6.
+As a replacement, use the &#8220;Firebird External&#8221; option in LibreOffice Base.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://github.com/FirebirdSQL/jaybird/blob/master/devdoc/jdp/jdp-2022-04-deprecate-ooremote.md">jdp-2022-04: Deprecate OOREMOTE (OpenOffice/LibreOffice driver) for removal</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="native-using-firebird-client-library"><a class="anchor" href="#native-using-firebird-client-library"></a>13.3. Native (using Firebird client library)</h3>
+<div class="paragraph">
+<p>Default URL format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebirdsql:native://host[:port]/&lt;database&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Legacy URL format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebirdsql:native:host[/port]:&lt;database&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Type 2 driver, will connect to the database using client library (<code>fbclient.dll</code> on Windows, and <code>libfbclient.so</code> on Linux).
+Requires correct installation of the client library and&#8201;&#8212;&#8201;for Jaybird 2.2 or earlier&#8201;&#8212;&#8201;the Jaybird native library, or&#8201;&#8212;&#8201;for Jaybird 3 and higher&#8201;&#8212;&#8201;the JNA jar file.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebirdsql:local:&lt;database&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Type 2 driver in local mode.
+Uses client library as in previous case, however will not use socket communication, but rather access database directly.
+Requires correct installation of the client library and&#8201;&#8212;&#8201;for Jaybird 2.2 or earlier&#8201;&#8212;&#8201; the Jaybird native library, or&#8201;&#8212;&#8201;for Jaybird 3 and higher&#8201;&#8212;&#8201;the JNA jar file.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 4 and higher also support:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebird:native://host[:port]/&lt;database&gt;
+jdbc:firebird:native:host[/port]:&lt;database&gt;
+jdbc:firebird:local:&lt;database&gt;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As of Jaybird 5, the separate &#8220;LOCAL&#8221; protocol implementation has been removed.
+The JDBC URL sub-protocol <code>jdbc:firebirdsql:local</code> and <code>jdbc:firebird:local</code> are still supported but are now simply aliases for &#8220;<code>native</code>&#8221;.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="embedded-server"><a class="anchor" href="#embedded-server"></a>13.4. Embedded Server</h3>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebirdsql:embedded:&lt;database&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Similar to the Firebird client library, however <code>fbembed.dll</code> on Windows and <code>libfbembed.so</code> on Linux are used, falling back to <code>fbclient.dll</code>/<code>libfbclient.so</code> under the assumption it provides Embedded functionality.
+Requires correctly installed and configured Firebird embedded library and&#8201;&#8212;&#8201;for Jaybird 2.2 or earlier&#8201;&#8212;&#8201;the Jaybird native  library, or&#8201;&#8212;&#8201;for Jaybird 3 and higher&#8201;&#8212;&#8201;the JNA jar file.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 4 and higher also support:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>jdbc:firebird:embedded:&lt;database&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="character-sets"><a class="anchor" href="#character-sets"></a>14. Character sets</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="how-can-i-specify-the-connection-character-set"><a class="anchor" href="#how-can-i-specify-the-connection-character-set"></a>14.1. How can I specify the connection character set?</h3>
+<div class="paragraph">
+<p>Jaybird provides two connection properties to specify the connection character set:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>charSet</code> with a Java character set name (alias: <code>localEncoding</code>)</p>
+<div class="paragraph">
+<p>The Java character set name must map to an equivalent Firebird character set.</p>
+</div>
+</li>
+<li>
+<p><code>encoding</code> with a Firebird character set name (alias: <code>lc_ctype</code>)</p>
+<div class="paragraph">
+<p>The Firebird character set name&#8201;&#8212;&#8201;except <code>NONE</code>&#8201;&#8212;&#8201;must map to an equivalent Java character set.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For most applications, use only one of these two properties.</p>
+</div>
+<div class="paragraph">
+<p>For special situations it is possible to specify both <code>charSet</code> and <code>encoding</code> to convert/reinterpret a character set into another character set, this is usually only necessary to fix data problems.</p>
+</div>
+<div class="paragraph">
+<p>To phrase differently:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>encoding=&lt;firebird charset&gt;</code>: use connection encoding <code>&lt;firebird charset&gt;</code> and interpret in the equivalent Java character set</p>
+</li>
+<li>
+<p><code>charSet=&lt;java charset&gt;</code>: use Firebird equivalent of <code>&lt;java charset&gt;</code> as connection encoding and interpret in <code>&lt;java charset&gt;</code></p>
+</li>
+<li>
+<p><code>encoding=&lt;firebird charset&gt;&amp;charSet=&lt;java charset&gt;</code>: use connection encoding  <code>&lt;firebird charset&gt;</code>, but interpret in <code>&lt;java charset&gt;</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The handling of Firebird character set <code>NONE</code> is slightly different, see below.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="how-does-character-set-none-work"><a class="anchor" href="#how-does-character-set-none-work"></a>14.2. How does character set <code>NONE</code> work?</h3>
+<div class="paragraph">
+<p>The Firebird character set <code>NONE</code> is a special case, it essentially means &#8220;no character set&#8221;.
+You can store anything in it, but conversions to or from this character set are not defined.</p>
+</div>
+<div class="paragraph">
+<p>Using character set <code>NONE</code> can result in incorrect character set handling when the database is used from different locales.</p>
+</div>
+<div class="paragraph">
+<p>When used as a connection character set, Jaybird handles <code>NONE</code> as follows:</p>
+</div>
+<div class="sect3">
+<h4 id="none-jaybird3"><a class="anchor" href="#none-jaybird3"></a>14.2.1. Jaybird 3 and higher</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>encoding=NONE</code> means connection encoding <code>NONE</code> and interpret columns with character set <code>NONE</code> using the default JVM encoding, and interpret columns with an explicit character set in their equivalent Java character set</p>
+</li>
+<li>
+<p><code>encoding=NONE&amp;charSet=ISO-8859-1</code> the same, but instead of the JVM default, use <code>ISO-8859-1</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="none-jaybird2-2"><a class="anchor" href="#none-jaybird2-2"></a>14.2.2. Jaybird 2.2 and earlier</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code>encoding=NONE</code> means use connection encoding <code>NONE</code> and interpret everything using the default JVM encoding</p>
+</li>
+<li>
+<p><code>encoding=NONE&amp;charSet=ISO-8859-1</code> the same, but instead of the JVM default, use <code>ISO-8859-1</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="what-happens-if-no-connection-character-set-is-specified"><a class="anchor" href="#what-happens-if-no-connection-character-set-is-specified"></a>14.3. What happens if no connection character set is specified?</h3>
+<div class="paragraph">
+<p>When no character set has been specified explicitly, Jaybird 2.2 and earlier, and Jaybird 3.0.2 and higher default to connection character set <code>NONE</code>.
+See  <a href="#how-does-character-set-none-work">How does character set <code>NONE</code> work?</a> for details on character set <code>NONE</code>.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 3.0.0 and 3.0.1, however, will reject the connection, see <a href="#how-can-i-solve-the-error-connection-rejected-no-connection-character-set-specified">How can I solve the error "Connection rejected: No connection character set specified"</a>.</p>
+</div>
+<div class="paragraph">
+<p>In Jaybird 3 it is possible to override the default connection character set by specifying system property <code>org.firebirdsql.jdbc.defaultConnectionEncoding</code> with a valid Firebird character set name.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 3.0.2 introduces the system property <code>org.firebirdsql.jdbc.requireConnectionEncoding</code>, which&#8201;&#8212;&#8201;when set to <code>true</code>&#8201;&#8212;&#8201;will reject connections without a character set (which was the default behavior in Jaybird 3.0.0 and 3.0.1).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="how-can-i-solve-the-error-connection-rejected-no-connection-character-set-specified"><a class="anchor" href="#how-can-i-solve-the-error-connection-rejected-no-connection-character-set-specified"></a>14.4. How can I solve the error "Connection rejected: No connection character set specified"</h3>
+<div class="paragraph">
+<p>If no character set has been set, Jaybird 3 and higher may reject the connection with an <code>SQLNonTransientConnectionException</code> with message <em>"Connection rejected: No connection character set specified (property lc_ctype, encoding, charSet or localEncoding).
+Please specify a connection character set (e.g. property charSet=utf-8) or consult the Jaybird documentation for more information."</em></p>
+</div>
+<div class="paragraph">
+<p>In Jaybird 3.0.0 and 3.0.1 this error will be thrown if the character set has not been set explicitly.
+In Jaybird 3.0.2 and higher this error will only be thrown if system property <code>org.firebirdsql.jdbc.requireConnectionEncoding</code> has been set to <code>true</code>.</p>
+</div>
+<div class="paragraph">
+<p>To address this error, you can set the default connection character set using one of the following options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use connection property <code>encoding</code> (alias: <code>lc_ctype</code>) with a Firebird character set name.</p>
+<div class="paragraph">
+<p>Use <code>encoding=NONE</code> for the default behavior (with some caveats, see  <a href="#how-does-character-set-none-work">How does character set <code>NONE</code> work?</a>).</p>
+</div>
+</li>
+<li>
+<p>Use connection property <code>charSet</code> (alias: <code>localEncoding</code>) with a Java character set name.</p>
+</li>
+<li>
+<p>Use a combination of <code>encoding</code> and <code>charSet</code>, if you want to reinterpret a Firebird character set in a Java character set other than the default  mapping.</p>
+</li>
+<li>
+<p>By providing a default Firebird character set with system property  <code>org.firebirdsql.jdbc.defaultConnectionEncoding</code>.
+Jaybird will apply the specified character set as the default when no character set is specified in the connection properties.</p>
+<div class="paragraph">
+<p>This property only supports Firebird character set names.</p>
+</div>
+<div class="paragraph">
+<p>Use <code>-Dorg.firebirdsql.jdbc.defaultConnectionEncoding=NONE</code> to revert to the default behavior (with some caveats, see <a href="#how-does-character-set-none-work">How does character set <code>NONE</code> work?</a>).
+With Jaybird 3.0.2 or higher, it is better to just not set system property <code>org.firebirdsql.jdbc.requireConnectionEncoding</code> if you want to apply <code>NONE</code>.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-can-i-enable-the-windows-tcp-loopback-fast-path-introduced-in-firebird-3-0-2"><a class="anchor" href="#how-can-i-enable-the-windows-tcp-loopback-fast-path-introduced-in-firebird-3-0-2"></a>15. How can I enable the Windows "TCP Loopback Fast Path" introduced in Firebird 3.0.2?</h2>
+<div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Microsoft has deprecated the <code>SIO_LOOPBACK_FAST_PATH</code> and recommends not to use it.</p>
+</div>
+<div class="paragraph">
+<p>Support was removed in Firebird 5.0.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Firebird 3.0.2 adds support for &#8220;TCP Loopback Fast Path&#8221; (<code>SIO_LOOPBACK_FAST_PATH</code> socket option);
+support was removed in Firebird 5.0.
+This is available in Windows 8 / Windows Server 2012 and higher.
+This feature enables performance optimizations when connecting through localhost (127.0.0.1 / ::1).
+It requires support on both client and server side.</p>
+</div>
+<div class="paragraph">
+<p>Java support for "TCP Loopback Fast Path" was introduced in Java 8 update 60, it can be enabled by specifying the system property <code>jdk.net.useFastTcpLoopback</code> with value <code>true</code> (e.g. specify <code>-Djdk.net.useFastTcpLoopback=true</code> in your Java commandline).</p>
+</div>
+<div class="paragraph">
+<p>Unfortunately, Java only has an 'all-or-nothing' support for the &#8220;TCP Loopback Fast Path&#8221;, so Jaybird cannot enable this for you: you must specify this  property on JVM startup.
+On the other hand, this has the benefit that this works for all Jaybird versions, as long as you use Java 8 update 60 or higher (and Firebird 3.0.2 or higher, but before 5.0.0).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="common-connection-errors"><a class="anchor" href="#common-connection-errors"></a>16. Common connection errors</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="your-user-name-and-password-are-not-defined-ask-your-database-administrator-to-set-up-a-firebird-login.-335544472"><a class="anchor" href="#your-user-name-and-password-are-not-defined-ask-your-database-administrator-to-set-up-a-firebird-login.-335544472"></a>16.1. Your user name and password are not defined. Ask your database administrator to set up a Firebird login. (335544472)</h3>
+<div class="paragraph">
+<p>This error means that the user does not exist, or that the specified password is not correct.</p>
+</div>
+<div class="paragraph">
+<p>When connecting to Firebird 3.0 and higher, this error can also mean that the user does exist (with that password), but not for the authentication plugins tried for this connection.</p>
+</div>
+<div class="paragraph">
+<p>For example, Jaybird 2.2.x and earlier only support legacy authentication, if you try to log in as a user created for SRP authentication, you will get the same error.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="incompatible-wire-encryption-levels-requested-on-client-and-server-335545064"><a class="anchor" href="#incompatible-wire-encryption-levels-requested-on-client-and-server-335545064"></a>16.2. Incompatible wire encryption levels requested on client and server (335545064)</h3>
+<div class="paragraph">
+<p>With Jaybird 3.0.0 - 3.0.3 connecting to Firebird 3.0 or higher, this usually means that the setting <code>WireCrypt</code> is set to its (default) value of <code>Required</code>.</p>
+</div>
+<div class="paragraph">
+<p>Upgrade to Jaybird 3.0.4 or higher, or relax this setting (in <code>firebird.conf</code>) to <code>WireCrypt = Enabled</code>.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://github.com/FirebirdSQL/jaybird/wiki/Jaybird-and-Firebird-3">Jaybird Wiki&#8201;&#8212;&#8201;Jaybird and Firebird 3</a>.</p>
+</div>
+<div class="paragraph">
+<p>With Jaybird 3.0.4 or higher, or Jaybird 4, this error means that you have requested a connection with a mismatch in encryption settings.
+For example, you specified connection property <code>wireCrypt=required</code> while Firebird is set to <code>WireCrypt = Disabled</code> (or vice versa).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="connection-rejected-by-remote-interface-335544421"><a class="anchor" href="#connection-rejected-by-remote-interface-335544421"></a>16.3. connection rejected by remote interface (335544421)</h3>
+<div class="paragraph">
+<p>In general this error means that Jaybird requested a connection with properties not supported by Firebird.
+It can have other causes than described below.</p>
+</div>
+<div class="sect3">
+<h4 id="cause-username-or-password-is-null"><a class="anchor" href="#cause-username-or-password-is-null"></a>16.3.1. Cause: username or password is null</h4>
+<div class="paragraph">
+<p>With Jaybird 3 and Jaybird 4 connecting to Firebird 3.0 or higher, leaving username or password null will lead to Jaybird not trying any authentication plugin, and as a result Firebird will reject the connection.</p>
+</div>
+<div class="paragraph">
+<p>With Firebird 2.5 and earlier, or Jaybird 2.2 or earlier, or Jaybird 5 or higher, this situation will yield error &#8220;Your user name and password are not defined. Ask your database administrator to set up a Firebird login.&#8221;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cause-wirecrypt-required"><a class="anchor" href="#cause-wirecrypt-required"></a>16.3.2. Cause: wirecrypt required</h4>
+<div class="paragraph">
+<p>With Jaybird 2.2.x connecting to Firebird 3.0 or higher, this usually means that the setting <code>WireCrypt</code> is set to its (default) value of <code>Required</code>.</p>
+</div>
+<div class="paragraph">
+<p>Relax this setting (in <code>firebird.conf</code>) to <code>WireCrypt = Enabled</code>.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://github.com/FirebirdSQL/jaybird/wiki/Jaybird-and-Firebird-3">Jaybird Wiki&#8201;&#8212;&#8201;Jaybird and Firebird 3</a>.</p>
+</div>
+<div class="paragraph">
+<p>Make sure you check the other settings mentioned in that article, otherwise you&#8217;ll get the next error.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cause-unsupported-protocol"><a class="anchor" href="#cause-unsupported-protocol"></a>16.3.3. Cause: unsupported protocol version</h4>
+<div class="paragraph">
+<p>Since Jaybird 6, protocol versions of unsupported Firebird versions are no longer tried by default with pure Java connections.
+Connecting to unsupported Firebird versions with the pure Java protocol can result in this error.</p>
+</div>
+<div class="paragraph">
+<p>There are two options to address this:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Specify connection property <code>enableProtocol</code> with a list of unsupported protocol versions to try in addition to the supported protocol versions, or <code>"*"</code> to try all available protocol versions (e.g. <code>enableProtocol=12</code> or <code>enableProtocol=*</code>).</p>
+</li>
+<li>
+<p>Use a native connection instead of a pure Java connection.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="error-occurred-during-login-please-check-server-firebird-log-for-details-335545106"><a class="anchor" href="#error-occurred-during-login-please-check-server-firebird-log-for-details-335545106"></a>16.4. Error occurred during login, please check server firebird.log for details (335545106)</h3>
+<div class="paragraph">
+<p>If the logging contains something like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>SERVER	Sat Oct 28 10:07:26 2017
+	Authentication error
+	No matching plugins on server</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With Jaybird 2.2 connecting to Firebird 3.0 or higher, this means that the setting <code>AuthServer</code> does not include the <code>Legacy_Auth</code> plugin.
+Enable <code>Legacy_Auth</code> (in <code>firebird.conf</code>) by adding this value to the property  <code>AuthServer</code>, for example: <code>AuthServer = Srp, Legacy_Auth</code>.
+You also need to make sure your user is created with the legacy user manager, see <a href="https://github.com/FirebirdSQL/jaybird/wiki/Jaybird-and-Firebird-3">Jaybird Wiki&#8201;&#8212;&#8201;Jaybird and Firebird 3</a> for details.</p>
+</div>
+<div class="paragraph">
+<p>With Jaybird 4 and higher, this can also mean that none of the default authentication plugins, or those specified using connection property  <code>authPlugins</code>, are listed in the <code>AuthServer</code> setting.
+Either revise the Firebird configuration, or explicitly configure connection property <code>authPlugins</code> with authentication plugins that are configured in Firebird.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="encryption-key-did-not-meet-algorithm-requirements-of-symmetricarc4-337248282"><a class="anchor" href="#encryption-key-did-not-meet-algorithm-requirements-of-symmetricarc4-337248282"></a>16.5. Encryption key did not meet algorithm requirements of Symmetric/Arc4 (337248282)</h3>
+<div class="paragraph">
+<p>If the exception cause is <em>java.security.InvalidKeyException: Illegal key size or default parameters</em>, this means that your Java installation applies a security policy that does not allow ARCFOUR with a 160 bit encryption key.</p>
+</div>
+<div class="paragraph">
+<p>If <code>wireCrypt=ENABLED</code> (the default), this is just logged as a warning.
+The connection will succeed, but it does mean that the connection will not be encrypted.
+If <code>wireCrypt=REQUIRED</code>, this is thrown as an exception, and the connection will fail.</p>
+</div>
+<div class="paragraph">
+<p>This could indicate that your Java version applies the limited strength Cryptographic Jurisdiction Policy (this was the default in Java 8 Update 152 and earlier), or has been explicitly configured to apply the limited policy, or has a custom security policy to restrict the cryptographic key size.</p>
+</div>
+<div class="paragraph">
+<p>Solutions and workarounds:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Apply the unlimited Cryptographic Jurisdiction Policy, see <a href="https://stackoverflow.com/a/3864276/466862">this Stack Overflow answer</a></p>
+</li>
+<li>
+<p>Relax your custom security policy to allow 160 bit keys for ARCFOUR</p>
+</li>
+<li>
+<p>Disable wire encryption for Firebird by setting <code>WireCrypt = Disabled</code> in <code>firebird.conf</code></p>
+</li>
+<li>
+<p>Set <code>wireCrypt=DISABLED</code> in the connection properties</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Be aware that the first two options may have legal implications depending on the local law in your country regarding cryptography.</p>
+</div>
+</div>
+</div>
+</div>
+<h1 id="jdbc-support" class="sect0"><a class="anchor" href="#jdbc-support"></a>JDBC Support</h1>
+<div class="sect1">
+<h2 id="how-much-of-jdbc-is-supported-by-jaybird"><a class="anchor" href="#how-much-of-jdbc-is-supported-by-jaybird"></a>17. How much of JDBC is supported by Jaybird?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>WARNING</strong> The information in this section is not 100% up-to-date</p>
+</div>
+<div class="paragraph">
+<p>Jaybird 4 follows the JDBC 4.3 specification with some features and methods not implemented as they are not supported by Firebird.</p>
+</div>
+<div class="paragraph">
+<p>Implemented features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Most useful JDBC functionality (&#8220;useful&#8221; in the opinion of the developers).</p>
+</li>
+<li>
+<p>XA transactions with true two phase commit when used via <code>javax.sql.XADataSource</code> implementation <code>org.firebirdsql.ds.FBXADataSource</code>.</p>
+</li>
+<li>
+<p><code>ObjectFactory</code> implementation <code>org.firebirdsql.ds.DataSourceFactory</code> for use in environments with JNDI but no <code>TransactionManager</code>.</p>
+</li>
+<li>
+<p><code>DataSource</code> implementation <code>org.firebirdsql.ds.FBSimpleDataSource</code> (no pooling).</p>
+</li>
+<li>
+<p><code>ConnectionPoolDataSource</code> implementation <code>org.firebirdsql.ds.FBConnectionPoolDataSource</code> (please be aware, contrary to suggested by the naming, this does not provide connection pooling, this is intended as a factory of connections for use by a connection pool, e.g. as provided by a Java EE/Jakarta EE application server)</p>
+</li>
+<li>
+<p>Complete access to all Firebird database parameter block and transaction parameter block settings.</p>
+</li>
+<li>
+<p>JMX mbean for database management (so far just database create and drop).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-parts-of-jdbc-are-not-supported-by-jaybird"><a class="anchor" href="#what-parts-of-jdbc-are-not-supported-by-jaybird"></a>18. What parts of JDBC are NOT supported by Jaybird?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>WARNING</strong> The information in this section is outdated</p>
+</div>
+<div class="paragraph">
+<p>The following optional features are NOT supported:</p>
+</div>
+<div class="paragraph">
+<p>The following optional features and the methods that support it are not implemented:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ref and Array types.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>java.sql.PreparedStatement</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setRef(int i, Ref x)</code></p>
+</li>
+<li>
+<p><code>setArray(int i, Array x)</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>java.sql.ResultSet</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getArray(int i)</code></p>
+</li>
+<li>
+<p><code>getArray(String columnName)</code></p>
+</li>
+<li>
+<p><code>getRef(int i)</code></p>
+</li>
+<li>
+<p><code>getRef(String columnName)</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>User Defined Types/Type Maps.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>java.sql.ResultSet</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getObject(int i, java.util.Map map)</code></p>
+</li>
+<li>
+<p><code>getObject(String columnName, java.util.Map map)</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>java.sql.Connection</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getTypeMap()</code></p>
+</li>
+<li>
+<p><code>setTypeMap(java.util.Map map)</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Excluding the unsupported features, the following methods are not yet implemented:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>java.sql.Blob</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getBytes(long pos, int length)</code></p>
+</li>
+<li>
+<p><code>position(byte pattern[], long start)</code></p>
+</li>
+<li>
+<p><code>position(Blob pattern, long start)</code></p>
+</li>
+<li>
+<p><code>getBinaryStream(long pos, long length)</code></p>
+</li>
+<li>
+<p><code>truncate(long len)</code></p>
+</li>
+<li>
+<p>Methods with a position (<code>pos</code>) parameter with a value greater than 1</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>java.sql.Clob</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>length()</code></p>
+</li>
+<li>
+<p><code>truncate(long len)</code></p>
+</li>
+<li>
+<p><code>position(String searchstr, long start)</code></p>
+</li>
+<li>
+<p><code>position(Clob searchstr, long start)</code></p>
+</li>
+<li>
+<p><code>getCharacterStream(long pos, long length)</code></p>
+</li>
+<li>
+<p>Methods with a position (<code>pos</code>) parameter with a value greater than 1</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following methods are implemented, but do not work as expected:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>java.sql.Statement</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>get/setMaxFieldSize</code> does nothing</p>
+</li>
+<li>
+<p><code>get/setQueryTimeout</code> supported since Jaybird 4 with Firebird 4.0 and higher</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>java.sql.PreparedStatement</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setObject(index,object,type)</code> This method is implemented but behaves as <code>setObject(index,object)</code></p>
+</li>
+<li>
+<p><code>setObject(index,object,type,scale)</code> This method is implemented but behaves as <code>setObject(index,object)</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>java.sql.CallableStatement</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getBigDecimal(index,scale)</code> This method is implemented but behaves as <code>getBigDecimal(index)</code>.
+The method is deprecated, and we suggest using <code>getBigDecimal(index)</code> and adjust the scale of the returned <code>BigDecimal</code> using <code>BigDecimal.setScale(newScale,roundingMode)</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>java.sql.ResultSetMetaData</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>isReadOnly(i)</code> always returns false</p>
+</li>
+<li>
+<p><code>isWritable(i)</code> always returns true</p>
+</li>
+<li>
+<p><code>isDefinitivelyWritable(i)</code> always returns true</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>java.sql.ResultSet</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getBigDecimal(index,scale)</code> This method is implemented but behaves as <code>getBigDecimal(index)</code>.
+The method is deprecated, and we suggest using <code>getBigDecimal(index)</code> and adjust the scale of the returned <code>BigDecimal</code> using <code>BigDecimal.setScale(newScale,roundingMode)</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<h1 id="features" class="sect0"><a class="anchor" href="#features"></a>Features</h1>
+<div class="sect1">
+<h2 id="does-jaybird-support-connection-pooling"><a class="anchor" href="#does-jaybird-support-connection-pooling"></a>19. Does Jaybird support connection pooling?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jaybird itself no longer provides connection pooling.
+Earlier versions had a <code>DataSource</code> implementation with connection pooling, but this implementation had severe bugs.
+This implementation (and all other classes in <code>org.firebirdsql.pool</code>) was deprecated in Jaybird 2.2 and dropped in Jaybird 3.</p>
+</div>
+<div class="paragraph">
+<p>Jaybird provides a basic <code>DataSource</code> implementation and a <code>ConnectionPoolDataSource</code> implementation.
+Contrary to its name the latter <strong>does not provide a connection pool</strong>, but is intended to be used by a connection pool (as implemented in an application server) to create connections <em>for</em> the connection pool.</p>
+</div>
+<div class="paragraph">
+<p>If your application is built on a Java EE/Jakarta EE application server, we suggest you use the connection pooling provided by the application server using the <code>javax.sql.ConnectionPoolDataSource</code> implementation <code>org.firebirdsql.ds.FBConnectionPoolDataSource</code>, or using the <code>javax.sql.XADataSource</code> implementation <code>org.firebirdsql.ds.FBXADataSource</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you develop standalone applications, or you use an application server without connection pooling, we suggest you use third-party libraries like:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/brettwooldridge/HikariCP">HikariCP</a></p>
+</li>
+<li>
+<p><a href="https://www.mchange.com/projects/c3p0/">c3p0</a></p>
+</li>
+<li>
+<p><a href="http://commons.apache.org/proper/commons-dbcp/">Apache DBCP</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<h1 id="compatibility-notes" class="sect0"><a class="anchor" href="#compatibility-notes"></a>Compatibility notes</h1>
+<div class="sect1">
+<h2 id="wildfly"><a class="anchor" href="#wildfly"></a>20. Wildfly</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The minimal <code>module.xml</code> to use Jaybird 3 under Wildfly is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;module xmlns="urn:jboss:module:1.0" name="org.firebirdsql"&gt;
+  &lt;resources&gt;
+    &lt;resource-root path="jaybird-3.0.x.jar"/&gt;
+  &lt;/resources&gt;
+  &lt;dependencies&gt;
+    &lt;module name="javax.api"/&gt;
+    &lt;module name="javax.transaction.api"/&gt;
+    &lt;module name="javax.resource.api"/&gt;
+  &lt;/dependencies&gt;
+&lt;/module&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With Jaybird 3.0.4 and higher for Java 7 (but not Java 8!) in Wildfly (or JBoss), you will need to add the module <code>javax.xml.bind.api</code> to your module:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;module xmlns="urn:jboss:module:1.0" name="org.firebirdsql"&gt;
+  &lt;resources&gt;
+    &lt;resource-root path="jaybird-3.0.x.jar"/&gt;
+  &lt;/resources&gt;
+  &lt;dependencies&gt;
+    &lt;module name="javax.api"/&gt;
+    &lt;module name="javax.transaction.api"/&gt;
+    &lt;module name="javax.resource.api"/&gt;
+    &lt;module name="javax.xml.bind.api"/&gt; &lt;!-- Add this --&gt;
+  &lt;/dependencies&gt;
+&lt;/module&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, use Jaybird for Java 8 (or higher).</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-10-16 15:13:04 +0200
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
+<script>
+    // https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.12.0/tocbot.min.js
+    !function(e){var t={};function n(o){if(t[o])return t[o].exports;var l=t[o]={i:o,l:!1,exports:{}};return e[o].call(l.exports,l,l.exports,n),l.l=!0,l.exports}n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var l in e)n.d(o,l,function(t){return e[t]}.bind(null,l));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){(function(o){var l,r,i;!function(o,s){r=[],l=function(e){"use strict";var t,o,l,r=n(2),i={},s={},c=n(3),a=n(4),u=n(5),d=!!(e&&e.document&&e.document.querySelector&&e.addEventListener);if("undefined"==typeof window&&!d)return;var f=Object.prototype.hasOwnProperty;function m(e,t,n){var o,l;return t||(t=250),function(){var r=n||this,i=+new Date,s=arguments;o&&i<o+t?(clearTimeout(l),l=setTimeout(function(){o=i,e.apply(r,s)},t)):(o=i,e.apply(r,s))}}return s.destroy=function(){if(!i.skipRendering)try{document.querySelector(i.tocSelector).innerHTML=""}catch(e){console.warn("Element not found: "+i.tocSelector)}i.scrollContainer&&document.querySelector(i.scrollContainer)?(document.querySelector(i.scrollContainer).removeEventListener("scroll",this._scrollListener,!1),document.querySelector(i.scrollContainer).removeEventListener("resize",this._scrollListener,!1),t&&document.querySelector(i.scrollContainer).removeEventListener("click",this._clickListener,!1)):(document.removeEventListener("scroll",this._scrollListener,!1),document.removeEventListener("resize",this._scrollListener,!1),t&&document.removeEventListener("click",this._clickListener,!1))},s.init=function(e){if(d&&(i=function(){for(var e={},t=0;t<arguments.length;t++){var n=arguments[t];for(var o in n)f.call(n,o)&&(e[o]=n[o])}return e}(r,e||{}),this.options=i,this.state={},i.scrollSmooth&&(i.duration=i.scrollSmoothDuration,i.offset=i.scrollSmoothOffset,s.scrollSmooth=n(6).initSmoothScrolling(i)),t=c(i),o=a(i),this._buildHtml=t,this._parseContent=o,s.destroy(),null!==(l=o.selectHeadings(i.contentSelector,i.headingSelector)))){var h=o.nestHeadingsArray(l).nest;i.skipRendering||t.render(i.tocSelector,h),this._scrollListener=m(function(e){t.updateToc(l),!i.disableTocScrollSync&&u(i);var n=e&&e.target&&e.target.scrollingElement&&0===e.target.scrollingElement.scrollTop;(e&&(0===e.eventPhase||null===e.currentTarget)||n)&&(t.updateToc(l),i.scrollEndCallback&&i.scrollEndCallback(e))},i.throttleTimeout),this._scrollListener(),i.scrollContainer&&document.querySelector(i.scrollContainer)?(document.querySelector(i.scrollContainer).addEventListener("scroll",this._scrollListener,!1),document.querySelector(i.scrollContainer).addEventListener("resize",this._scrollListener,!1)):(document.addEventListener("scroll",this._scrollListener,!1),document.addEventListener("resize",this._scrollListener,!1));var p=null;return this._clickListener=m(function(e){i.scrollSmooth&&t.disableTocAnimation(e),t.updateToc(l),p&&clearTimeout(p),p=setTimeout(function(){t.enableTocAnimation()},i.scrollSmoothDuration)},i.throttleTimeout),i.scrollContainer&&document.querySelector(i.scrollContainer)?document.querySelector(i.scrollContainer).addEventListener("click",this._clickListener,!1):document.addEventListener("click",this._clickListener,!1),this}},s.refresh=function(e){s.destroy(),s.init(e||this.options)},e.tocbot=s,s}(o),void 0===(i="function"==typeof l?l.apply(t,r):l)||(e.exports=i)}(void 0!==o?o:this.window||this.global)}).call(this,n(1))},function(e,t){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t){e.exports={tocSelector:".js-toc",contentSelector:".js-toc-content",headingSelector:"h1, h2, h3",ignoreSelector:".js-toc-ignore",hasInnerContainers:!1,linkClass:"toc-link",extraLinkClasses:"",activeLinkClass:"is-active-link",listClass:"toc-list",extraListClasses:"",isCollapsedClass:"is-collapsed",collapsibleClass:"is-collapsible",listItemClass:"toc-list-item",activeListItemClass:"is-active-li",collapseDepth:0,scrollSmooth:!0,scrollSmoothDuration:420,scrollSmoothOffset:0,scrollEndCallback:function(e){},headingsOffset:1,throttleTimeout:50,positionFixedSelector:null,positionFixedClass:"is-position-fixed",fixedSidebarOffset:"auto",includeHtml:!1,onClick:function(e){},orderedList:!0,scrollContainer:null,skipRendering:!1,headingLabelCallback:!1,ignoreHiddenElements:!1,headingObjectCallback:null,basePath:"",disableTocScrollSync:!1}},function(e,t){e.exports=function(e){var t=[].forEach,n=[].some,o=document.body,l=!0,r=" ";function i(n,o){var l=o.appendChild(function(n){var o=document.createElement("li"),l=document.createElement("a");e.listItemClass&&o.setAttribute("class",e.listItemClass);e.onClick&&(l.onclick=e.onClick);e.includeHtml&&n.childNodes.length?t.call(n.childNodes,function(e){l.appendChild(e.cloneNode(!0))}):l.textContent=n.textContent;return l.setAttribute("href",e.basePath+"#"+n.id),l.setAttribute("class",e.linkClass+r+"node-name--"+n.nodeName+r+e.extraLinkClasses),o.appendChild(l),o}(n));if(n.children.length){var c=s(n.isCollapsed);n.children.forEach(function(e){i(e,c)}),l.appendChild(c)}}function s(t){var n=e.orderedList?"ol":"ul",o=document.createElement(n),l=e.listClass+r+e.extraListClasses;return t&&(l+=r+e.collapsibleClass,l+=r+e.isCollapsedClass),o.setAttribute("class",l),o}return{enableTocAnimation:function(){l=!0},disableTocAnimation:function(t){var n=t.target||t.srcElement;"string"==typeof n.className&&-1!==n.className.indexOf(e.linkClass)&&(l=!1)},render:function(e,t){var n=s(!1);t.forEach(function(e){i(e,n)});var o=document.querySelector(e);if(null!==o)return o.firstChild&&o.removeChild(o.firstChild),0===t.length?o:o.appendChild(n)},updateToc:function(i){var s;s=e.scrollContainer&&document.querySelector(e.scrollContainer)?document.querySelector(e.scrollContainer).scrollTop:document.documentElement.scrollTop||o.scrollTop,e.positionFixedSelector&&function(){var t;t=e.scrollContainer&&document.querySelector(e.scrollContainer)?document.querySelector(e.scrollContainer).scrollTop:document.documentElement.scrollTop||o.scrollTop;var n=document.querySelector(e.positionFixedSelector);"auto"===e.fixedSidebarOffset&&(e.fixedSidebarOffset=document.querySelector(e.tocSelector).offsetTop),t>e.fixedSidebarOffset?-1===n.className.indexOf(e.positionFixedClass)&&(n.className+=r+e.positionFixedClass):n.className=n.className.split(r+e.positionFixedClass).join("")}();var c,a=i;if(l&&null!==document.querySelector(e.tocSelector)&&a.length>0){n.call(a,function(t,n){return function t(n){var o=0;return n!==document.querySelector(e.contentSelector&&null!=n)&&(o=n.offsetTop,e.hasInnerContainers&&(o+=t(n.offsetParent))),o}(t)>s+e.headingsOffset+10?(c=a[0===n?n:n-1],!0):n===a.length-1?(c=a[a.length-1],!0):void 0});var u=document.querySelector(e.tocSelector).querySelectorAll("."+e.linkClass);t.call(u,function(t){t.className=t.className.split(r+e.activeLinkClass).join("")});var d=document.querySelector(e.tocSelector).querySelectorAll("."+e.listItemClass);t.call(d,function(t){t.className=t.className.split(r+e.activeListItemClass).join("")});var f=document.querySelector(e.tocSelector).querySelector("."+e.linkClass+".node-name--"+c.nodeName+'[href="'+e.basePath+"#"+c.id.replace(/([ #;&,.+*~':"!^$[\]()=>|/@])/g,"\\$1")+'"]');-1===f.className.indexOf(e.activeLinkClass)&&(f.className+=r+e.activeLinkClass);var m=f.parentNode;m&&-1===m.className.indexOf(e.activeListItemClass)&&(m.className+=r+e.activeListItemClass);var h=document.querySelector(e.tocSelector).querySelectorAll("."+e.listClass+"."+e.collapsibleClass);t.call(h,function(t){-1===t.className.indexOf(e.isCollapsedClass)&&(t.className+=r+e.isCollapsedClass)}),f.nextSibling&&-1!==f.nextSibling.className.indexOf(e.isCollapsedClass)&&(f.nextSibling.className=f.nextSibling.className.split(r+e.isCollapsedClass).join("")),function t(n){return-1!==n.className.indexOf(e.collapsibleClass)&&-1!==n.className.indexOf(e.isCollapsedClass)?(n.className=n.className.split(r+e.isCollapsedClass).join(""),t(n.parentNode.parentNode)):n}(f.parentNode.parentNode)}}}}},function(e,t){e.exports=function(e){var t=[].reduce;function n(e){return e[e.length-1]}function o(t){if(!(t instanceof window.HTMLElement))return t;if(e.ignoreHiddenElements&&(!t.offsetHeight||!t.offsetParent))return null;var n={id:t.id,children:[],nodeName:t.nodeName,headingLevel:function(e){return+e.nodeName.split("H").join("")}(t),textContent:e.headingLabelCallback?String(e.headingLabelCallback(t.textContent)):t.textContent.trim()};return e.includeHtml&&(n.childNodes=t.childNodes),e.headingObjectCallback?e.headingObjectCallback(n,t):n}return{nestHeadingsArray:function(l){return t.call(l,function(t,l){var r=o(l);return r&&function(t,l){for(var r=o(t),i=r.headingLevel,s=l,c=n(s),a=i-(c?c.headingLevel:0);a>0;)(c=n(s))&&void 0!==c.children&&(s=c.children),a--;i>=e.collapseDepth&&(r.isCollapsed=!0),s.push(r)}(r,t.nest),t},{nest:[]})},selectHeadings:function(t,n){var o=n;e.ignoreSelector&&(o=n.split(",").map(function(t){return t.trim()+":not("+e.ignoreSelector+")"}));try{return document.querySelector(t).querySelectorAll(o)}catch(e){return console.warn("Element not found: "+t),null}}}}},function(e,t){e.exports=function(e){var t=document.querySelector(e.tocSelector);if(t&&t.scrollHeight>t.clientHeight){var n=t.querySelector("."+e.activeListItemClass);n&&(t.scrollTop=n.offsetTop)}}},function(e,t){function n(e,t){var n=window.pageYOffset,o={duration:t.duration,offset:t.offset||0,callback:t.callback,easing:t.easing||d},l=document.querySelector('[id="'+decodeURI(e).split("#").join("")+'"]'),r=typeof e==="string"?o.offset+(e?l&&l.getBoundingClientRect().top||0:-(document.documentElement.scrollTop||document.body.scrollTop)):e,i=typeof o.duration==="function"?o.duration(r):o.duration,s,c;function a(e){c=e-s;window.scrollTo(0,o.easing(c,n,r,i));if(c<i){requestAnimationFrame(a)}else{u()}}function u(){if(window.scrollTo(0,n+r),"function"==typeof o.callback){o.callback()}}function d(e,t,n,o){return(e/=o/2)<1?n/2*e*e+t:-n/2*(--e*(e-2)-1)+t}requestAnimationFrame(function(e){s=e;a(e)})}t.initSmoothScrolling=function(e){document.documentElement.style;var t=e.duration,o=e.offset,l=location.hash?r(location.href):location.href;function r(e){return e.slice(0,e.lastIndexOf("#"))}!function(){document.body.addEventListener("click",function(i){if(!function(e){return"a"===e.tagName.toLowerCase()&&(e.hash.length>0||"#"===e.href.charAt(e.href.length-1))&&(r(e.href)===l||r(e.href)+"#"===l)}(i.target)||i.target.className.indexOf("no-smooth-scroll")>-1||"#"===i.target.href.charAt(i.target.href.length-2)&&"!"===i.target.href.charAt(i.target.href.length-1)||-1===i.target.className.indexOf(e.linkClass))return;n(i.target.hash,{duration:t,offset:o,callback:function(){!function(e){var t=document.getElementById(e.substring(1));t&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())}(i.target.hash)}})},!1)}()}}]);
+</script>
+<script>
+    /* Tocbot dynamic TOC, based on https://github.com/asciidoctor/asciidoctor/issues/699#issuecomment-321066006 */
+    var oldtoc = document.getElementById('toctitle').nextElementSibling;
+    var newtoc = document.createElement('div');
+    newtoc.setAttribute('id', 'tocbot');
+    newtoc.setAttribute('class', 'js-toc');
+    oldtoc.parentNode.replaceChild(newtoc, oldtoc);
+    tocbot.init({ contentSelector: '#content',
+        headingSelector: 'h1, h2, h3, h4',
+        ignoreSelector: '.float',
+        scrollSmooth: false });
+    var handleTocOnResize = function() {
+        var width = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+        if (width < 768) {
+            tocbot.refresh({ contentSelector: '#content',
+                headingSelector: 'h1, h2, h3, h4',
+                ignoreSelector: '.float',
+                collapseDepth: 6,
+                activeLinkClass: 'ignoreactive',
+                throttleTimeout: 1000,
+                scrollSmooth: false });
+        }
+        else {
+            tocbot.refresh({ contentSelector: '#content',
+                headingSelector: 'h1, h2, h3, h4',
+                ignoreSelector: '.float',
+                scrollSmooth: false });
+        }
+    };
+    window.addEventListener('resize', handleTocOnResize);
+    handleTocOnResize();
+</script>
+</body>
+</html>
