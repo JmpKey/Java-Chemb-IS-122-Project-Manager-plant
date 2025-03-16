@@ -31,7 +31,7 @@ dbcname - database path (in Windows NT must be replaced).
 
 0. How can I free the Database from firebird?:
 ```
-sudo chmod 775 ptdb.fdb>
+sudo chmod 775 ptdb.fdb
 ```
 
 # Dependencies
