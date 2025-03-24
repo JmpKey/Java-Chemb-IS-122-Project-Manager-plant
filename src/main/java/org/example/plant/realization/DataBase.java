@@ -22,12 +22,21 @@ public class DataBase implements DbCall {
     private String uspassG;
     private Message message;
 
+    private static DbCall instance;
+
+    public static DbCall getInstance() {
+        if (instance == null) {
+            instance = new DataBase();
+        }
+        return instance;
+    }
+
     public DataBase() { }
 
     @Override
     public void systemDB(boolean flagUs) {
         String filePath = "connect.conf";
-        ConfigReader configReader = new ConfigReader(filePath);
+        ConfigReader configReader = ConfigReader.getInstance(filePath);
 
         try {
             List<String> configValues = configReader.readConfigValues();
@@ -43,7 +52,7 @@ public class DataBase implements DbCall {
     public void connectSDB(String su, String supass) {
         try {
             sdb = DriverManager.getConnection(url, su, supass);
-            message = new MesWin();
+            message = MesErrEntrance.getInstance();
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
@@ -55,7 +64,7 @@ public class DataBase implements DbCall {
         try {
             if(sdb != null) { disconnectSDB(); }
             udb = DriverManager.getConnection(url, usnameG, uspassG);
-            if(message == null) { message = new MesWin(); }
+            if(message == null) { message = MesErrEntrance.getInstance(); }
         } catch (SQLException e) {
             e.printStackTrace();
         }

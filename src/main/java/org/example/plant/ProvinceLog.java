@@ -41,7 +41,7 @@ public class ProvinceLog  {
 
     private void eLogActionButton() {
         if(!Objects.equals(usename_tf.getText(), "") && !Objects.equals(usepass_pf.getText(), "")) {
-            Authorization user = new LoginUser();
+            Authorization user = LoginUser.getInstance();
             user.setMetropolisController(this.capitalWinController);
             user.loginUser(usename_tf.getText(), usepass_pf.getText());
             capitalWinController.tableToModel();

@@ -8,6 +8,15 @@ import org.example.plant.protocol.Status;
 import java.sql.SQLException;
 
 public class UpStatus implements Status {
+    private static Status instance;
+
+    public static Status getInstance() {
+        if (instance == null) {
+            instance = new UpStatus();
+        }
+        return instance;
+    }
+
     @Override
     public void updateStatus(Metropolis capitalWinCont, RadioButton statusl_rb, RadioButton statush_rb, RadioButton statussh_rb, CheckBox ftask_cb) {
         String status = null;

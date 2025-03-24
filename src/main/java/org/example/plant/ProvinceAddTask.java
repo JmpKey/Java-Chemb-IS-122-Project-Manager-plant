@@ -102,7 +102,7 @@ public class ProvinceAddTask {
     }
 
     private void eLogActionAddButton() {
-        newTask = new NewTask();
+        newTask = NewTask.getInstance();
         newTask.setCapitalWinCont(capitalWinCont);
         newTask.setAddTaskWin(this);
         newTask.initTask();

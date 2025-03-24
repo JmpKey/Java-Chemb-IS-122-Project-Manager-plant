@@ -104,11 +104,11 @@ public class CapitalWin {
 
     @FXML
     void initialize() {
-        lain = new BuildCapital();
+        lain = BuildCapital.getInstance();
         lain.setApplication(this.application);
         lain.setCapitalWin(this);
         lain.setTableView(table_tview);
-        Authorization authorization = new LoginUser();
+        Authorization authorization = LoginUser.getInstance();
         authorization.setMetropolisController(lain);
         lain.fxmlInit(enter_menb, registr_menb, idColumn, nameColumn, textColumn, deadlineColumn, createdTask, statusTask, execTask, lastCorrectTask, assignedTask, create_menb, dependenciesTask, update_bt, exit_menb, exec_bt, del_bt, prior_bt, dethline_bt, plan_menb);
     }

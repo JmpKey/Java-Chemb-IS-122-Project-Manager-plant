@@ -13,6 +13,15 @@ import java.util.regex.Pattern;
 public class ConfigReader implements Adjustment {
     private String filePath;
 
+    private static ConfigReader instance;
+
+    public static ConfigReader getInstance(String conf_n) {
+        if (instance == null) {
+            instance = new ConfigReader(conf_n);
+        }
+        return instance;
+    }
+
     public ConfigReader(String conf_n) {
         this.filePath = conf_n;
     }

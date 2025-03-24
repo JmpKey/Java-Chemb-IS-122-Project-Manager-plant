@@ -45,8 +45,8 @@ public class ProvinceReg {
     private void eRegActionButton() {
         if(!Objects.equals(usname_tf.getText(), "") | !Objects.equals(uspass1_pf.getText(), "") | !Objects.equals(uspass2_pf.getText(), "") | !Objects.equals(usmail_tf.getText(), "")) {
             if(Objects.equals(uspass1_pf.getText(), uspass2_pf.getText())) {
-                Registration newuser = new AddUser();
-                newuser.createNewUser(usname_tf.getText(), uspass1_pf.getText(), usmail_tf.getText());
+                Registration newUser = AddUser.getInstance();
+                newUser.createNewUser(usname_tf.getText(), uspass1_pf.getText(), usmail_tf.getText());
             }
         }
     }

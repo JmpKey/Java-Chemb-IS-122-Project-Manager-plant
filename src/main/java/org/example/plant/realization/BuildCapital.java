@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.plant.*;
 import org.example.plant.protocol.*;
+import org.example.plant.realization.factory.MesFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,10 +27,20 @@ public class BuildCapital implements Metropolis {
     private AppCall application;
     private CapitalWin capitalWin;
     private TableView<Model> tableView;
+    private Message mesErr;
     private Message mes;
     private boolean loginFlag = false;
     private int selectedIndex;
     private ObservableList<Task> taskList;
+
+    private static BuildCapital instance;
+
+    public static Metropolis getInstance() {
+        if (instance == null) {
+            instance = new BuildCapital();
+        }
+        return instance;
+    }
 
     @Override
     public void setApplication(AppCall application) {
@@ -48,7 +59,7 @@ public class BuildCapital implements Metropolis {
 
     @Override
     public void initUserData(String user, String pass) {
-        application = new AppLIPC();
+        application = AppLIPC.getInstance();
         application.setUsnameG(user);
         application.setUspassG(pass);
         application.initUDB();
@@ -105,7 +116,8 @@ public class BuildCapital implements Metropolis {
             }
         });
 
-        mes = new MesWin();
+        mesErr = MesFactory.createMessage(false);
+        mes = MesFactory.createMessage(true);
 
         System.out.println("initialize()");
 
@@ -143,7 +155,7 @@ public class BuildCapital implements Metropolis {
                     throw new RuntimeException(e);
                 }
             }
-            else { mes.showMessage("Вы уже вошли!"); }
+            else { mesErr.showMessage("Вы уже вошли!"); }
         });
 
         create_menb.setOnAction(actionEventAddTask -> {
@@ -163,13 +175,13 @@ public class BuildCapital implements Metropolis {
                     throw new RuntimeException(e);
                 }
             }
-            else { mes.showMessage("Вы не вошли!"); }
+            else { mesErr.showMessage("Вы не вошли!"); }
         });
 
         update_bt.setOnAction(actionEventUpdateData -> {
             if (loginFlag) {
                 tableToModel();
-            } else { mes.showMessage("Вы не вошли!"); }
+            } else { mesErr.showMessage("Вы не вошли!"); }
         });
 
         exit_menb.setOnAction(actionEventExitUs -> {
@@ -183,15 +195,15 @@ public class BuildCapital implements Metropolis {
                     throw new RuntimeException(e);
                 }
             }
-            else { mes.showMessage("Вы не вошли!"); }
+            else { mesErr.showMessage("Вы не вошли!"); }
         });
 
         exec_bt.setOnAction(actionEventExec -> {
             if (loginFlag) {
-                int indexec = tableView.getItems().get(selectedIndex).getAssignedTask();
-                mes.showMessage("Создатель задачи: " + application.getDb().getUserNameById(indexec));
+                int indExec = tableView.getItems().get(selectedIndex).getAssignedTask();
+                mes.showMessage("Создатель задачи: " + application.getDb().getUserNameById(indExec));
             }
-            else { mes.showMessage("Вы не вошли!"); }
+            else { mesErr.showMessage("Вы не вошли!"); }
         });
 
         del_bt.setOnAction(actionEventTaskD -> {
@@ -202,9 +214,9 @@ public class BuildCapital implements Metropolis {
                     application.getDb().deleteTaskForId(tableView.getItems().get(selectedIndex).getIdTask());
                     tableToModel();
                 }
-                else { mes.showMessage("Вы не создатель задачи."); }
+                else { mesErr.showMessage("Вы не создатель задачи."); }
             }
-            else { mes.showMessage("Вы не вошли!"); }
+            else { mesErr.showMessage("Вы не вошли!"); }
         });
 
         prior_bt.setOnAction(actionEventStatusU -> {
@@ -224,7 +236,7 @@ public class BuildCapital implements Metropolis {
                     throw new RuntimeException(e);
                 }
             }
-            else { mes.showMessage("Вы не вошли!"); }
+            else { mesErr.showMessage("Вы не вошли!"); }
         });
 
         dethline_bt.setOnAction(actionEventTimeU -> {
@@ -244,18 +256,18 @@ public class BuildCapital implements Metropolis {
                     throw new RuntimeException(e);
                 }
             }
-            else { mes.showMessage("Вы не вошли!"); }
+            else { mesErr.showMessage("Вы не вошли!"); }
         });
 
         plan_menb.setOnAction(actionEventPan -> {
             if (loginFlag) {
-                TaskScheduler scheduler = new ComparePlans(); // Исправлено с ComparePlans на TaskScheduler
+                TaskScheduler scheduler = ComparePlans.getInstance(); // Исправлено с ComparePlans на TaskScheduler
                 scheduler.initTaskScheduler();
                 Map<Integer, Task> taskMap = new HashMap<>();
 
                 for (int i = 0; i < tableView.getItems().size(); i++) {
                     // Создание новой задачи на основе элементов из tableView
-                    Task task = new TaskWork();
+                    Task task = TaskWork.getInstance();
                     task.initTask(
                             tableView.getItems().get(i).getIdTask(),
                             tableView.getItems().get(i).getNameTask(),
@@ -279,10 +291,10 @@ public class BuildCapital implements Metropolis {
                     }
                     mes.showMessage(stmes);
                 } catch (Exception e) {
-                    mes.showMessage(e.getMessage());
+                    mesErr.showMessage(e.getMessage());
                 }
             } else {
-                mes.showMessage("Вы не вошли!");
+                mesErr.showMessage("Вы не вошли!");
             }
         });
     }

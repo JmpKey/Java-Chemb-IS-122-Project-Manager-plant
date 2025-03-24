@@ -7,6 +7,15 @@ import org.example.plant.protocol.Metropolis;
 import java.util.Objects;
 
 public class UpDateTime implements DateTame {
+    private static DateTame instance;
+
+    public static DateTame getInstance() {
+        if (instance == null) {
+            instance = new UpDateTime();
+        }
+        return instance;
+    }
+
     @Override
     public void updateNewDateTime(Metropolis capitalWinCont, TextField dat1_tf, TextField dat2_tf, TextField dat3_tf, TextField time1_tf, TextField time2_tf) {
         if (!Objects.equals(dat1_tf.getText(), "") & !Objects.equals(dat2_tf.getText(), "") & !Objects.equals(dat3_tf.getText(), "") & !Objects.equals(time1_tf.getText(), "") & !Objects.equals(time2_tf.getText(), "")) {

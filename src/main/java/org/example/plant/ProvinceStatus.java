@@ -39,7 +39,7 @@ public class ProvinceStatus {
     void initialize() { setstatus_but.setOnAction(eventStatus -> eStatusActionButton()); }
 
     private void eStatusActionButton() {
-        Status update = new UpStatus();
+        Status update = UpStatus.getInstance();
         update.updateStatus(capitalWinCont, statusl_rb, statush_rb, statussh_rb, ftask_cb);
     }
 }

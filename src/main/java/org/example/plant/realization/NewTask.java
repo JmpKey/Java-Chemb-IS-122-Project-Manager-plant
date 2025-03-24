@@ -12,6 +12,15 @@ public class NewTask implements CreateTask {
     private Metropolis capitalWinCont;
     private ProvinceAddTask addTaskWin;
 
+    private static CreateTask instance;
+
+    public static CreateTask getInstance() {
+        if (instance == null) {
+            instance = new NewTask();
+        }
+        return instance;
+    }
+
     @Override
     public void setCapitalWinCont(Metropolis capitalWinCont) { this.capitalWinCont = capitalWinCont; }
 

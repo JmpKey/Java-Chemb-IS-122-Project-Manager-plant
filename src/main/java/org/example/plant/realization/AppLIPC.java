@@ -11,10 +11,18 @@ import org.example.plant.protocol.DbCall;
 import java.io.IOException;
 
 public class AppLIPC implements AppCall {
-    private CapitalWin capitalWinController;
     private String usnameG;
     private String uspassG;
     private DbCall db;
+
+    private static AppLIPC instance;
+
+    public static AppCall getInstance() {
+        if (instance == null) {
+            instance = new AppLIPC();
+        }
+        return instance;
+    }
 
     @Override
     public void xtermGo(Stage stage) throws IOException  {
@@ -23,7 +31,7 @@ public class AppLIPC implements AppCall {
         stage.setTitle("PlanT");
         stage.setScene(scene);
 
-        capitalWinController = fxmlLoader.getController();
+        CapitalWin capitalWinController = fxmlLoader.getController();
 
         stage.show();
     }

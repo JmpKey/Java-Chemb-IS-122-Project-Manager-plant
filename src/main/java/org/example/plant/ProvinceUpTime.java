@@ -54,7 +54,7 @@ public class ProvinceUpTime {
     void initialize() { ok_but.setOnAction(eventTime -> eTimeActionButton()); }
 
     void eTimeActionButton() {
-        DateTame newDT = new UpDateTime();
+        DateTame newDT = UpDateTime.getInstance();
         newDT.updateNewDateTime(capitalWinCont, dat1_tf, dat2_tf, dat3_tf, time1_tf, time2_tf);
     }
 }
