@@ -35,11 +35,10 @@ public class DataBase implements DbCall {
 
     @Override
     public void systemDB(boolean flagUs) {
-        String filePath = "connect.conf";
-        ConfigReader configReader = ConfigReader.getInstance(filePath);
+        ConfigReader configReader = ConfigReader.getInstance();
 
         try {
-            List<String> configValues = configReader.readConfigValues();
+            List<String> configValues = configReader.readConfigValuesDb();
             url = "jdbc:" + configValues.get(0) + "://" + configValues.get(1) + ":" + configValues.get(2) + "/" + configValues.get(5);
             if(flagUs == true) { connectUDB(); }
             else { connectSDB(configValues.get(3), configValues.get(4)); } // SU

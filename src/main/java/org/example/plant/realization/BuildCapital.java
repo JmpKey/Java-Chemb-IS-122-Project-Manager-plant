@@ -290,6 +290,8 @@ public class BuildCapital implements Metropolis {
                         stmes += "Задача ID: " + t.getId() + ", имя: " + t.getNameTask() + ", статус: " + t.getPriorityValue() + "\n";
                     }
                     mes.showMessage(stmes);
+                    EMailCall mail = new EmailSender();
+                    mail.connectMail("FromEmail", application.getUsnameG(),"passwd", "toEmail", "theme", "text");
                 } catch (Exception e) {
                     mesErr.showMessage(e.getMessage());
                 }

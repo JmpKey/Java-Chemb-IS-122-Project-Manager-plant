@@ -11,26 +11,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ConfigReader implements Adjustment {
-    private String filePath;
-
     private static ConfigReader instance;
 
-    public static ConfigReader getInstance(String conf_n) {
+    public static ConfigReader getInstance() {
         if (instance == null) {
-            instance = new ConfigReader(conf_n);
+            instance = new ConfigReader();
         }
         return instance;
     }
 
-    public ConfigReader(String conf_n) {
-        this.filePath = conf_n;
-    }
-
     @Override
-    public List<String> readConfigValues() throws IOException {
+    public List<String> readConfigValuesDb() throws IOException {
         List<String> values = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\[\\w+\\] = \\[(.+)\\]"); // Regex для поиска значений
 
+        String filePath = "connect.conf";
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -40,6 +35,32 @@ public class ConfigReader implements Adjustment {
                 }
             }
         }
+        return values;
+    }
+
+    @Override
+    public List<String> readConfigValuesMail() {
+        String filePath = "mail.conf";
+        List<String> values = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Удаляем пробелы и проверяем, что строка не пустая
+                line = line.trim();
+                if (!line.isEmpty()) {
+                    // Извлекаем значение из строки, удаляя ключ и разделители
+                    String[] parts = line.split("=");
+                    if (parts.length == 2) {
+                        String value = parts[1].trim().replaceAll("[\\[\\]]", ""); // Удаляем квадратные скобки
+                        values.add(value);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Обработка исключений
+        }
+
         return values;
     }
 }

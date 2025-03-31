@@ -8,6 +8,7 @@ module org.example.plant {
     requires java.sql;
     requires javafx.graphics;
     requires java.desktop;
+    requires java.mail;
 
     opens org.example.plant to javafx.fxml;
     exports org.example.plant;
