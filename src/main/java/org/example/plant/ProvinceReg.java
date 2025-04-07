@@ -38,15 +38,22 @@ public class ProvinceReg {
     private PasswordField uspass2_pf;
 
     @FXML
+    private PasswordField uspasse_pf;
+
+    @FXML
     void initialize() {
         uscreate_bt.setOnAction(event -> eRegActionButton());
     }
 
     private void eRegActionButton() {
-        if(!Objects.equals(usname_tf.getText(), "") | !Objects.equals(uspass1_pf.getText(), "") | !Objects.equals(uspass2_pf.getText(), "") | !Objects.equals(usmail_tf.getText(), "")) {
+        if(!Objects.equals(usname_tf.getText(), "") | !Objects.equals(uspass1_pf.getText(), "") | !Objects.equals(uspass2_pf.getText(), "") | !Objects.equals(usmail_tf.getText(), "") | !Objects.equals(uspasse_pf.getText(), "")) {
             if(Objects.equals(uspass1_pf.getText(), uspass2_pf.getText())) {
                 Registration newUser = AddUser.getInstance();
-                newUser.createNewUser(usname_tf.getText(), uspass1_pf.getText(), usmail_tf.getText());
+                try {
+                    newUser.createNewUser(usname_tf.getText(), uspass1_pf.getText(), usmail_tf.getText(), uspasse_pf.getText());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

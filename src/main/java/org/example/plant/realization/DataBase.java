@@ -52,6 +52,9 @@ public class DataBase implements DbCall {
         try {
             sdb = DriverManager.getConnection(url, su, supass);
             message = MesErrEntrance.getInstance();
+            // *
+            ConfigReader configReader = ConfigReader.getInstance();
+            configReader.userRemoval(sdb);
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
@@ -73,7 +76,7 @@ public class DataBase implements DbCall {
     public void disconnectUDB() throws SQLException { udb.close(); System.out.println("UDB end"); }
 
     @Override
-    public void createNewUser(String us, String uspass, String email) {
+    public void createNewUser(String us, String uspass, String email, String epass) {
         try {
             Statement statement = sdb.createStatement();
             String createUserQ = String.format("CREATE USER %s PASSWORD '%s'", us, uspass);
@@ -121,12 +124,13 @@ public class DataBase implements DbCall {
             e.printStackTrace();
         }
 
-        String sql2 = "INSERT INTO USERS (ID_US, NAME_US, EMAIL_US) VALUES (?, ?, ?)";
+        String sql2 = "INSERT INTO USERS (ID_US, NAME_US, EMAIL_US, PASSW) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = sdb.prepareStatement(sql2)) {
             preparedStatement.setInt(1, nextId);
             preparedStatement.setString(2, us);
             preparedStatement.setString(3, email);
+            preparedStatement.setString(4, epass);
 
             int rowsAffected = preparedStatement.executeUpdate();
             System.out.println(rowsAffected + " row(s) inserted.");
@@ -367,6 +371,7 @@ public class DataBase implements DbCall {
         }
     }
 
+    @Override
     public void updateTaskDeathline(int assignedTaskId, int curentTask, String newDeadlineString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); // dd-MM-yyyy  yyyy-MM-dd
 
@@ -402,5 +407,70 @@ public class DataBase implements DbCall {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Integer getUserIdByUserNameDel(Connection connection, String username) throws SQLException {
+        String query = "SELECT ID_US FROM USERS WHERE NAME_US = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("ID_US");
+            }
+        }
+        return null; // Пользователь не найден
+    }
+
+    public void deleteUser(Connection connection, Integer userId) throws SQLException {
+        String deleteQuery = "DELETE FROM USERS WHERE ID_US = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(deleteQuery)) {
+            pstmt.setInt(1, userId);
+            pstmt.executeUpdate();
+        }
+    }
+
+    public void clearAssignedTasks(Connection connection, Integer userId) throws SQLException {
+        String updateQuery = "UPDATE TASKS SET ASSIGNED_TASK = NULL WHERE ASSIGNED_TASK = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
+            pstmt.setInt(1, userId);
+            pstmt.executeUpdate();
+        }
+    }
+
+    public void deleteUserFromBd(Connection connection, String usNameDrop) {
+        try {
+            Statement statement = connection.createStatement();
+
+            // SQL команда для удаления пользователя
+            String sql = "DROP USER " + usNameDrop;
+
+            // Выполнение SQL команды
+            statement.executeUpdate(sql);
+            System.out.println("Пользователь " + usNameDrop + " успешно удален.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getPasswById(int idUs) {
+        String pass = null;
+
+        String query = "SELECT PASSW FROM USERS WHERE ID_US = ?";
+
+        try (PreparedStatement preparedStatement = udb.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, idUs);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                pass = resultSet.getString("PASSW");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pass;
     }
 }

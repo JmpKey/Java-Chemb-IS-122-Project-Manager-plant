@@ -38,15 +38,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.plant.ProvinceReg">
+<VBox prefHeight="241.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.plant.ProvinceReg">
   <children>
-    <AnchorPane fx:id="anc_ap" maxHeight="-1.0" maxWidth="-1.0" prefHeight="163.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="anc_ap" maxHeight="-1.0" maxWidth="-1.0" prefHeight="218.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
             <TextField fx:id="usname_tf" layoutX="23.0" layoutY="11.0" promptText="Логин" />
             <PasswordField fx:id="uspass1_pf" layoutX="23.0" layoutY="48.0" promptText="Пароль" />
             <PasswordField fx:id="uspass2_pf" layoutX="23.0" layoutY="85.0" promptText="Подтвердите пароль" />
-            <Button fx:id="uscreate_bt" layoutX="23.0" layoutY="159.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="160.0" text="Зарегистрироваться" />
             <TextField fx:id="usmail_tf" layoutX="23.0" layoutY="122.0" promptText="email" />
+            <PasswordField fx:id="uspasse_pf" layoutX="23.0" layoutY="159.0" promptText="Пароль от email" />
+            <Button fx:id="uscreate_bt" layoutX="23.0" layoutY="195.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="160.0" text="Зарегистрироваться" />
          </children>
     </AnchorPane>
   </children>

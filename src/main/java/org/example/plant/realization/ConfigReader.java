@@ -3,8 +3,11 @@ package org.example.plant.realization;
 import org.example.plant.protocol.Adjustment;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -62,5 +65,31 @@ public class ConfigReader implements Adjustment {
         }
 
         return values;
+    }
+
+    public void userRemoval(Connection connection) {
+        String filePath = "guru_secession";
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+            String username;
+            while ((username = br.readLine()) != null) {
+                // Получаем ID пользователя по имени
+                DataBase base = new DataBase();
+                Integer userId = base.getUserIdByUserNameDel(connection, username.trim());
+                if (userId != null) {
+                    base.clearAssignedTasks(connection, userId); // Очищаем поля ASSIGNED_TASK в TASKS
+                    base.deleteUser(connection, userId); // Удаляем данные пользователя
+                    base.deleteUserFromBd(connection, username); // Помянем и забудем
+                }
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

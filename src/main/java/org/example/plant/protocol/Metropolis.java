@@ -29,4 +29,6 @@ public interface Metropolis {
     CapitalWin getCapitalWin();
 
     int getSelectedIndex();
+
+    String getEpass();
 }

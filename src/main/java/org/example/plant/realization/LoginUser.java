@@ -2,6 +2,7 @@ package org.example.plant.realization;
 
 import org.example.plant.CapitalWin;
 import org.example.plant.protocol.Authorization;
+import org.example.plant.protocol.Enigma;
 import org.example.plant.protocol.Metropolis;
 
 public class LoginUser implements Authorization {
@@ -17,9 +18,7 @@ public class LoginUser implements Authorization {
     }
 
     @Override
-    public void loginUser(String name, String pass) {
-        capitalWinController.initUserData(name, pass);
-    }
+    public void loginUser(String name, String pass) { capitalWinController.initUserData(name, pass); }
 
     @Override
     public void setMetropolisController(Metropolis controller) {

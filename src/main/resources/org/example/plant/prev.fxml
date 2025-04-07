@@ -50,6 +50,7 @@
           <items>
             <MenuItem fx:id="create_menb" mnemonicParsing="false" text="Создать" />
             <MenuItem fx:id="plan_menb" mnemonicParsing="false" text="Планировать" />
+                  <MenuItem fx:id="report_menb" mnemonicParsing="false" text="Отчёт" />
           </items>
         </Menu>
         <Menu fx:id="henter_menb" mnemonicParsing="false" text="Вход">
@@ -65,16 +66,16 @@
          <children>
             <TableView fx:id="table_tview" layoutX="13.0" layoutY="1.0" prefHeight="304.0" prefWidth="613.0">
               <columns>
-                  <TableColumn fx:id="idColumn" text="ID"/>
-                  <TableColumn fx:id="nameColumn" text="Name"/>
-                  <TableColumn fx:id="textColumn" text="Text"/>
-                  <TableColumn fx:id="deadlineColumn" text="Deadline"/>
-                  <TableColumn fx:id="createdTask" text="CreatedTask"/>
-                  <TableColumn fx:id="statusTask" text="StatusTask"/>
-                  <TableColumn fx:id="execTask" text="ExecTask"/>
-                  <TableColumn fx:id="lastCorrectTask" text="LastCorrectTask"/>
-                  <TableColumn fx:id="assignedTask" text="AssignedTask"/>
-                  <TableColumn fx:id="dependenciesTask" text="DependenciesTask"/>
+                  <TableColumn fx:id="idColumn" text="ID" />
+                  <TableColumn fx:id="nameColumn" text="Name" />
+                  <TableColumn fx:id="textColumn" text="Text" />
+                  <TableColumn fx:id="deadlineColumn" text="Deadline" />
+                  <TableColumn fx:id="createdTask" text="CreatedTask" />
+                  <TableColumn fx:id="statusTask" text="StatusTask" />
+                  <TableColumn fx:id="execTask" text="ExecTask" />
+                  <TableColumn fx:id="lastCorrectTask" text="LastCorrectTask" />
+                  <TableColumn fx:id="assignedTask" text="AssignedTask" />
+                  <TableColumn fx:id="dependenciesTask" text="DependenciesTask" />
               </columns>
             </TableView>
              <Button fx:id="prior_bt" layoutX="136.0" layoutY="321.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="113.0" text="Статус" />

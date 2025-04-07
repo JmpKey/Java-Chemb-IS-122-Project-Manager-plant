@@ -11,6 +11,15 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class EmailSender implements EMailCall {
+    private static EMailCall instance;
+
+    public static EMailCall getInstance() {
+        if (instance == null) {
+            instance = new EmailSender();
+        }
+        return instance;
+    }
+
     @Override
     public void connectMail(String fromEmail, String fromUserName, String fromPassword, String toEmail, String themeMail, String textMail) {
         ConfigReader configMail = ConfigReader.getInstance();

@@ -17,7 +17,7 @@ public interface DbCall {
 
     void disconnectUDB() throws SQLException;
 
-    void createNewUser(String newname, String newpass, String email);
+    void createNewUser(String newname, String newpass, String email, String epass);
 
     ObservableList<Model> fetchTasksFromDB();
 
@@ -42,4 +42,6 @@ public interface DbCall {
     void updateTaskStatus(int assignedTaskId, int curentTask, String newStatus, boolean fStatus) throws SQLException;
 
     void updateTaskDeathline(int assignedTaskId, int curentTask, String newDeadlineString);
+
+    String getPasswById(int idUs);
 }

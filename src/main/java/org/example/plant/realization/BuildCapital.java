@@ -32,6 +32,7 @@ public class BuildCapital implements Metropolis {
     private boolean loginFlag = false;
     private int selectedIndex;
     private ObservableList<Task> taskList;
+    private String ePass;
 
     private static BuildCapital instance;
 
@@ -63,6 +64,12 @@ public class BuildCapital implements Metropolis {
         application.setUsnameG(user);
         application.setUspassG(pass);
         application.initUDB();
+        Enigma dePass = PasswordManager.getInstance();
+        try {
+            ePass = dePass.decryptPassword(application.getDb().getPasswById(application.getDb().getUserIdByName(user)), user, pass);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -93,6 +100,9 @@ public class BuildCapital implements Metropolis {
 
     @Override
     public int getSelectedIndex() { return selectedIndex; }
+
+    @Override
+    public String getEpass() { return ePass; }
 
     @Override
     public void fxmlInit(MenuItem enter_menb, MenuItem registr_menb, TableColumn<Model, Integer> idColumn, TableColumn<Model, String> nameColumn, TableColumn<Model, String> textColumn, TableColumn<Model, LocalDateTime> deadlineColumn, TableColumn<Model, LocalDateTime> createdTask, TableColumn<Model, String> statusTask, TableColumn<Model, Boolean> execTask, TableColumn<Model, LocalDateTime> lastCorrectTask, TableColumn<Model, Integer> assignedTask, MenuItem create_menb, TableColumn<Model, String> dependenciesTask, Button update_bt, MenuItem exit_menb, Button exec_bt, Button del_bt, Button prior_bt, Button dethline_bt, MenuItem plan_menb) {
@@ -188,6 +198,7 @@ public class BuildCapital implements Metropolis {
             if (loginFlag)
             {
                 try {
+                    ePass = null;
                     application.getDb().disconnectUDB();
                     tableView.getItems().clear();
                     loginFlag = false;
