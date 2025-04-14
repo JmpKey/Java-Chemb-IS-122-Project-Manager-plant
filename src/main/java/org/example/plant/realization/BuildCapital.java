@@ -33,6 +33,8 @@ public class BuildCapital implements Metropolis {
     private int selectedIndex;
     private ObservableList<Task> taskList;
     private String ePass;
+    private String fromEmail;
+    private String toEmail;
 
     private static BuildCapital instance;
 
@@ -102,10 +104,16 @@ public class BuildCapital implements Metropolis {
     public int getSelectedIndex() { return selectedIndex; }
 
     @Override
+    public String getFromEmail() { return fromEmail; }
+
+    @Override
     public String getEpass() { return ePass; }
 
     @Override
-    public void fxmlInit(MenuItem enter_menb, MenuItem registr_menb, TableColumn<Model, Integer> idColumn, TableColumn<Model, String> nameColumn, TableColumn<Model, String> textColumn, TableColumn<Model, LocalDateTime> deadlineColumn, TableColumn<Model, LocalDateTime> createdTask, TableColumn<Model, String> statusTask, TableColumn<Model, Boolean> execTask, TableColumn<Model, LocalDateTime> lastCorrectTask, TableColumn<Model, Integer> assignedTask, MenuItem create_menb, TableColumn<Model, String> dependenciesTask, Button update_bt, MenuItem exit_menb, Button exec_bt, Button del_bt, Button prior_bt, Button dethline_bt, MenuItem plan_menb) {
+    public String getToEmail() { return toEmail; }
+
+    @Override
+    public void fxmlInit(MenuItem enter_menb, MenuItem registr_menb, TableColumn<Model, Integer> idColumn, TableColumn<Model, String> nameColumn, TableColumn<Model, String> textColumn, TableColumn<Model, LocalDateTime> deadlineColumn, TableColumn<Model, LocalDateTime> createdTask, TableColumn<Model, String> statusTask, TableColumn<Model, Boolean> execTask, TableColumn<Model, LocalDateTime> lastCorrectTask, TableColumn<Model, Integer> assignedTask, MenuItem create_menb, TableColumn<Model, String> dependenciesTask, Button update_bt, MenuItem exit_menb, Button exec_bt, Button del_bt, Button prior_bt, Button dethline_bt, MenuItem plan_menb, MenuItem report_menb, MenuItem mess_menb) {
         // Устанавливаем фабрики для колонок
         idColumn.setCellValueFactory(new PropertyValueFactory<>("idTask"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nameTask"));
@@ -199,6 +207,8 @@ public class BuildCapital implements Metropolis {
             {
                 try {
                     ePass = null;
+                    fromEmail = null;
+                    toEmail = null;
                     application.getDb().disconnectUDB();
                     tableView.getItems().clear();
                     loginFlag = false;
@@ -309,6 +319,28 @@ public class BuildCapital implements Metropolis {
             } else {
                 mesErr.showMessage("Вы не вошли!");
             }
+        });
+
+        mess_menb.setOnAction(actionEventMess -> {
+            if (loginFlag) {
+                fromEmail = application.getDb().getEmailById(application.getDb().getUserIdByName(application.getUsnameG()));
+                toEmail = application.getDb().getEmailById(tableView.getItems().get(selectedIndex).getAssignedTask());
+
+                FXMLLoader mailLoader = new FXMLLoader();
+                mailLoader.setLocation(ProvinceMail.class.getResource("mail.fxml"));
+                try {
+                    Parent rootMail = mailLoader.load();
+                    ProvinceMail mailController = mailLoader.getController(); // Получаем контроллер
+                    mailController.capitalWinCont = this; //  передаем ссылку на контроллер Metroplis
+                    Stage stageMail = new Stage();
+                    stageMail.setTitle("Сообщение");
+                    stageMail.setScene(new Scene(rootMail));
+                    stageMail.showAndWait();
+                    //tableToModel();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else { mesErr.showMessage("Вы не вошли!"); }
         });
     }
 }

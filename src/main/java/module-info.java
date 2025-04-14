@@ -9,6 +9,7 @@ module org.example.plant {
     requires javafx.graphics;
     requires java.desktop;
     requires java.mail;
+    requires java.activation;
 
     opens org.example.plant to javafx.fxml;
     exports org.example.plant;

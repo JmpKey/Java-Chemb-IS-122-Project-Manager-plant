@@ -473,4 +473,25 @@ public class DataBase implements DbCall {
 
         return pass;
     }
+
+    @Override
+    public String getEmailById(int idUs) {
+        String address = null;
+
+        String query = "SELECT EMAIL_US FROM USERS WHERE ID_US = ?";
+
+        try (PreparedStatement preparedStatement = udb.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, idUs);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                address = resultSet.getString("EMAIL_US");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return address;
+    }
 }

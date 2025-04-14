@@ -94,7 +94,7 @@ public class ProvinceAddTask {
 
     public Metropolis capitalWinCont;
 
-    CreateTask newTask;
+    //CreateTask newTask;
 
     @FXML
     void initialize() {
@@ -102,6 +102,7 @@ public class ProvinceAddTask {
     }
 
     private void eLogActionAddButton() {
+        CreateTask newTask; // new
         newTask = NewTask.getInstance();
         newTask.setCapitalWinCont(capitalWinCont);
         newTask.setAddTaskWin(this);

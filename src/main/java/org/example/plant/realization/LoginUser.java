@@ -21,7 +21,5 @@ public class LoginUser implements Authorization {
     public void loginUser(String name, String pass) { capitalWinController.initUserData(name, pass); }
 
     @Override
-    public void setMetropolisController(Metropolis controller) {
-        this.capitalWinController = controller;
-    }
+    public void setMetropolisController(Metropolis controller) { this.capitalWinController = controller; }
 }

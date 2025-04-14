@@ -51,6 +51,7 @@
             <MenuItem fx:id="create_menb" mnemonicParsing="false" text="Создать" />
             <MenuItem fx:id="plan_menb" mnemonicParsing="false" text="Планировать" />
                   <MenuItem fx:id="report_menb" mnemonicParsing="false" text="Отчёт" />
+                  <MenuItem fx:id="mess_menb" mnemonicParsing="false" text="Сообщение" />
           </items>
         </Menu>
         <Menu fx:id="henter_menb" mnemonicParsing="false" text="Вход">

@@ -44,4 +44,6 @@ public interface DbCall {
     void updateTaskDeathline(int assignedTaskId, int curentTask, String newDeadlineString);
 
     String getPasswById(int idUs);
+
+    String getEmailById(int idUs);
 }
