@@ -35,4 +35,6 @@ public interface Metropolis {
     String getEpass();
 
     String getToEmail();
+
+    void search(String searchTerm);
 }
