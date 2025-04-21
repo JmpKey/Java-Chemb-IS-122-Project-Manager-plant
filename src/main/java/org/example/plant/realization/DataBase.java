@@ -51,8 +51,7 @@ public class DataBase implements DbCall {
     public void connectSDB(String su, String supass) {
         try {
             sdb = DriverManager.getConnection(url, su, supass);
-            message = MesErrEntrance.getInstance();
-            // *
+            message = MesWin.getInstance();
             ConfigReader configReader = ConfigReader.getInstance();
             configReader.userRemoval(sdb);
         } catch (SQLException e) { e.printStackTrace(); }

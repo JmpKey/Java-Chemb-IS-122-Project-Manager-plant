@@ -1,6 +1,7 @@
 package org.example.plant.realization;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -29,7 +30,7 @@ public class BuildCapital implements Metropolis {
     private TableView<Model> tableView;
     private Message mesErr;
     private Message mes;
-    private boolean loginFlag = false;
+    private boolean loginFlag;
     private int selectedIndex;
     private ObservableList<Task> taskList;
     private String ePass;
@@ -69,7 +70,9 @@ public class BuildCapital implements Metropolis {
         Enigma dePass = PasswordManager.getInstance();
         try {
             ePass = dePass.decryptPassword(application.getDb().getPasswById(application.getDb().getUserIdByName(user)), user, pass);
+            loginFlag = true;
         } catch (Exception e) {
+            loginFlag = false;
             throw new RuntimeException(e);
         }
     }
@@ -113,6 +116,29 @@ public class BuildCapital implements Metropolis {
     public String getToEmail() { return toEmail; }
 
     @Override
+    public void search(String searchTerm) {
+        // Создаем новый FilteredList, который будет фильтровать tasks
+        FilteredList<Model> filteredData = new FilteredList<>(application.getDb().fetchTasksFromDB(), p -> true);
+
+        // Устанавливаем фильтр
+        filteredData.setPredicate(model -> {
+            // Если нет строки для поиска, показываем все элементы
+            if (searchTerm == null || searchTerm.isEmpty()) {
+                return true;
+            }
+
+            // Сравниваем строку поиска с нужными полями модели
+            String lowerCaseFilter = searchTerm.toLowerCase();
+
+            // Предположим, что у вас есть метод getName() в вашей модели
+            return model.getNameTask().toLowerCase().contains(lowerCaseFilter);
+        });
+
+        // Обновляем TableView с отфильтрованными данными
+        tableView.setItems(filteredData);
+    }
+
+    @Override
     public void fxmlInit(MenuItem enter_menb, MenuItem registr_menb, TableColumn<Model, Integer> idColumn, TableColumn<Model, String> nameColumn, TableColumn<Model, String> textColumn, TableColumn<Model, LocalDateTime> deadlineColumn, TableColumn<Model, LocalDateTime> createdTask, TableColumn<Model, String> statusTask, TableColumn<Model, Boolean> execTask, TableColumn<Model, LocalDateTime> lastCorrectTask, TableColumn<Model, Integer> assignedTask, MenuItem create_menb, TableColumn<Model, String> dependenciesTask, Button update_bt, MenuItem exit_menb, Button exec_bt, Button del_bt, Button prior_bt, Button dethline_bt, MenuItem plan_menb, MenuItem report_menb, MenuItem mess_menb) {
         // Устанавливаем фабрики для колонок
         idColumn.setCellValueFactory(new PropertyValueFactory<>("idTask"));
@@ -154,6 +180,7 @@ public class BuildCapital implements Metropolis {
             stageR.setTitle("Регистрация");
             stageR.setScene(new Scene(rootR));
             stageR.showAndWait();
+            // loginFlag = false;
         });
 
         enter_menb.setOnAction(actionEventLog -> {
@@ -168,7 +195,6 @@ public class BuildCapital implements Metropolis {
                     stageLog.setTitle("Вход");
                     stageLog.setScene(new Scene(rootLog));
                     stageLog.showAndWait();
-                    loginFlag = true;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -311,8 +337,6 @@ public class BuildCapital implements Metropolis {
                         stmes += "Задача ID: " + t.getId() + ", имя: " + t.getNameTask() + ", статус: " + t.getPriorityValue() + "\n";
                     }
                     mes.showMessage(stmes);
-                    EMailCall mail = new EmailSender();
-                    mail.connectMail("FromEmail", application.getUsnameG(),"passwd", "toEmail", "theme", "text");
                 } catch (Exception e) {
                     mesErr.showMessage(e.getMessage());
                 }
@@ -336,7 +360,6 @@ public class BuildCapital implements Metropolis {
                     stageMail.setTitle("Сообщение");
                     stageMail.setScene(new Scene(rootMail));
                     stageMail.showAndWait();
-                    //tableToModel();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

@@ -94,19 +94,13 @@ public class EmailSender implements EMailCall {
             msg.addHeader("Content-Transfer-Encoding", "8bit");
 
             msg.setFrom(new InternetAddress(fromEmail, fromUserName)); // 2 nameFrom
-
             msg.setReplyTo(InternetAddress.parse(toEmail, false));
-
             msg.setSubject(subject, "UTF-8");
-
             msg.setSentDate(new Date());
-
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
 
             // Create the message body part
             BodyPart messageBodyPart = new MimeBodyPart();
-
-            // Fill the message
             messageBodyPart.setText(body);
 
             // Create a multipart message for attachment
@@ -115,20 +109,26 @@ public class EmailSender implements EMailCall {
             // Set text message part
             multipart.addBodyPart(messageBodyPart);
 
-            // Second part is attachment
-            messageBodyPart = new MimeBodyPart();
+            // Check if the file is not empty
+            if (file != null && !file.isEmpty()) {
+                // Second part is attachment
+                messageBodyPart = new MimeBodyPart();
 
-            DataSource source = new FileDataSource(file);
-            messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(file);
-            multipart.addBodyPart(messageBodyPart);
+                DataSource source = new FileDataSource(file);
+                messageBodyPart.setDataHandler(new DataHandler(source));
+
+                // Set only the file name (not the full path)
+                String fileName = new File(file).getName();
+                messageBodyPart.setFileName(fileName);
+                multipart.addBodyPart(messageBodyPart);
+            }
 
             // Send the complete message parts
             msg.setContent(multipart);
 
             // Send message
             Transport.send(msg);
-            System.out.println("EMail Sent Successfully with attachment!!");
+            System.out.println("EMail Sent Successfully" + (file != null && !file.isEmpty() ? " with attachment!!" : "!!"));
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
