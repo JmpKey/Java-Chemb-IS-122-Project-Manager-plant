@@ -102,6 +102,9 @@ public class CapitalWin {
     @FXML
     private MenuItem mess_menb;
 
+    @FXML
+    private MenuItem search_menb;
+
     private AppCall application;
 
     Metropolis lain;
@@ -116,6 +119,6 @@ public class CapitalWin {
         lain.setTableView(table_tview);
         Authorization authorization = LoginUser.getInstance();
         authorization.setMetropolisController(lain);
-        lain.fxmlInit(enter_menb, registr_menb, idColumn, nameColumn, textColumn, deadlineColumn, createdTask, statusTask, execTask, lastCorrectTask, assignedTask, create_menb, dependenciesTask, update_bt, exit_menb, exec_bt, del_bt, prior_bt, dethline_bt, plan_menb, report_menb, mess_menb);
+        lain.fxmlInit(enter_menb, registr_menb, idColumn, nameColumn, textColumn, deadlineColumn, createdTask, statusTask, execTask, lastCorrectTask, assignedTask, create_menb, dependenciesTask, update_bt, exit_menb, exec_bt, del_bt, prior_bt, dethline_bt, plan_menb, report_menb, mess_menb, search_menb);
     }
 }
