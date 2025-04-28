@@ -2,16 +2,15 @@
 Project Manager and Task Dependency Scheduler
 
 # How to collect it?
-1. Copy the database from the project files ptdb.fdb to Unix: /tmp/ or /var/rdb (recommended). In Windows NT, it doesn't matter where the database is located. Execute from a standard user:
+1. Let's generate a database. It must be run in the directory with the server installed (in Unix):
 ```
-cp <Path where the downloaded ABC file is located ptdb.fdb> /tmp/
-cd /tmp
+chmod +x generdb.sh
+cd <path to the DBMS distribution>/bin/
+~/plant/generdb.sh
 ```
-2.  The example uses Firebird, and other databases may have an individual order. Changing the user to firebird:
-```
-sudo chown firebird:firebird ptdb.fdb
-```
-Add a connection called "ptdb_02" to the DBMS.
+In Windows NT, it doesn't matter where the database is located.
+
+2. Add a connection called "ptdb_02" to the DBMS.
 Note: Use Jaybird 5 as a driver.
 
 3. Deploying a project to an IDE:
@@ -20,7 +19,7 @@ Adding a driver: right-click on the project name (on the left side where the fil
 
 Adding javax mail: just like the driver above, the path to the library is: */plant/dllhell/javax-mail-1.6.2/javax.mail.jar
 
-0. How can I free the Database from firebird?:
+0. How can I free the Database from firebird? (in Unix):
 ```
 sudo chmod 775 ptdb.fdb
 ```

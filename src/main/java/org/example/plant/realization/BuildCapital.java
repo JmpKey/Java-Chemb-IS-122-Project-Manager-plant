@@ -123,14 +123,14 @@ public class BuildCapital implements Metropolis {
         // Устанавливаем фильтр
         filteredData.setPredicate(model -> {
             // Если нет строки для поиска, показываем все элементы
-            if (searchTerm == null || searchTerm.isEmpty()) {
-                return true;
-            }
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            return true;
+        }
 
-            // Сравниваем строку поиска с нужными полями модели
-            String lowerCaseFilter = searchTerm.toLowerCase();
+        // Сравниваем строку поиска с нужными полями модели
+        String lowerCaseFilter = searchTerm.toLowerCase();
 
-            // Предположим, что у вас есть метод getName() в вашей модели
+        // Предположим, что у вас есть метод getName() в вашей модели
             return model.getNameTask().toLowerCase().contains(lowerCaseFilter);
         });
 
@@ -139,7 +139,7 @@ public class BuildCapital implements Metropolis {
     }
 
     @Override
-    public void fxmlInit(MenuItem enter_menb, MenuItem registr_menb, TableColumn<Model, Integer> idColumn, TableColumn<Model, String> nameColumn, TableColumn<Model, String> textColumn, TableColumn<Model, LocalDateTime> deadlineColumn, TableColumn<Model, LocalDateTime> createdTask, TableColumn<Model, String> statusTask, TableColumn<Model, Boolean> execTask, TableColumn<Model, LocalDateTime> lastCorrectTask, TableColumn<Model, Integer> assignedTask, MenuItem create_menb, TableColumn<Model, String> dependenciesTask, Button update_bt, MenuItem exit_menb, Button exec_bt, Button del_bt, Button prior_bt, Button dethline_bt, MenuItem plan_menb, MenuItem report_menb, MenuItem mess_menb) {
+    public void fxmlInit(MenuItem enter_menb, MenuItem registr_menb, TableColumn<Model, Integer> idColumn, TableColumn<Model, String> nameColumn, TableColumn<Model, String> textColumn, TableColumn<Model, LocalDateTime> deadlineColumn, TableColumn<Model, LocalDateTime> createdTask, TableColumn<Model, String> statusTask, TableColumn<Model, Boolean> execTask, TableColumn<Model, LocalDateTime> lastCorrectTask, TableColumn<Model, Integer> assignedTask, MenuItem create_menb, TableColumn<Model, String> dependenciesTask, Button update_bt, MenuItem exit_menb, Button exec_bt, Button del_bt, Button prior_bt, Button dethline_bt, MenuItem plan_menb, MenuItem report_menb, MenuItem mess_menb, MenuItem search_menb) {
         // Устанавливаем фабрики для колонок
         idColumn.setCellValueFactory(new PropertyValueFactory<>("idTask"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nameTask"));
@@ -235,8 +235,10 @@ public class BuildCapital implements Metropolis {
                     ePass = null;
                     fromEmail = null;
                     toEmail = null;
-                    application.getDb().disconnectUDB();
-                    tableView.getItems().clear();
+                    try {
+                        application.getDb().disconnectUDB();
+                        tableView.getItems().clear();
+                    } catch (UnsupportedOperationException e) { }
                     loginFlag = false;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -360,6 +362,24 @@ public class BuildCapital implements Metropolis {
                     stageMail.setTitle("Сообщение");
                     stageMail.setScene(new Scene(rootMail));
                     stageMail.showAndWait();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else { mesErr.showMessage("Вы не вошли!"); }
+        });
+
+        search_menb.setOnAction(actionEventSearch -> {
+            if (loginFlag) {
+                FXMLLoader searchLoader = new FXMLLoader();
+                searchLoader.setLocation(ProvinceSearch.class.getResource("search.fxml"));
+                try {
+                    Parent rootSearch = searchLoader.load();
+                    ProvinceSearch searchController = searchLoader.getController(); // Получаем контроллер
+                    searchController.capitalWinCont = this; //  передаем ссылку на контроллер Metroplis
+                    Stage stageSearch = new Stage();
+                    stageSearch.setTitle("Поиск");
+                    stageSearch.setScene(new Scene(rootSearch));
+                    stageSearch.showAndWait();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
