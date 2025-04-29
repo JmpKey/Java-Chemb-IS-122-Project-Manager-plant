@@ -1,16 +1,8 @@
 #!/bin/bash
 
-echo "This script generates a database. If the database already exists, it will be cleaned!"
-read -p "Are you sure you want to continue? (y/n): " answer
-
-# Checking the user's response
-if [[ "$answer" == "n" || "$answer" == "N" ]]; then
-    echo "The script is completed by the user."
-    exit 1
-fi
-
-# The path to the database file
-DB_FILE="/tmp/ptdb.fdb"
+# The path to the SQL files
+SQL_DIR="$(dirname "$(realpath "$0")")/sql" # Specify the path to the directory with the SQL files here
+DB_FILE="/tmp/db.fdb"
 echo "Running an SQL script to prepare the database..."
 
 # Creating a database
@@ -24,81 +16,20 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# We connect to the created database and create tables
-sudo -u firebird ./isql -user SYSDBA -password masterkey "$(realpath "$DB_FILE")" <<EOL
--- Deleting existing tables and sequences, if any
-DROP TABLE TASKS IF EXISTS;
-DROP TABLE USERS IF EXISTS;
-DROP SEQUENCE SEQ_TASKS_ID_TASK IF EXISTS;
-DROP SEQUENCE SEQ_USERS_ID_US IF EXISTS;
+# A function for executing SQL files
+execute_sql_files() {
+    for sql_file in "$SQL_DIR"/*.sql; do
+        echo "File Execution: $sql_file"
+        sudo -u firebird ./isql -user SYSDBA -password masterkey "$(realpath "$DB_FILE")" < "$sql_file"
+        if [ $? -ne 0 ]; then
+            echo "File execution error: $sql_file"
+            exit 1
+        fi
+    done
+}
 
-CREATE TABLE USERS (
-    ID_US INTEGER NOT NULL,
-    NAME_US VARCHAR(255),
-    EMAIL_US VARCHAR(255),
-    PASSW VARCHAR(255),
-    CONSTRAINT PK_USERS PRIMARY KEY (ID_US),
-    CONSTRAINT UQ_USERS_1 UNIQUE (NAME_US)
-);
+# Starting the execution of SQL files
+execute_sql_files
 
-CREATE TABLE TASKS (
-    ID_TASK INTEGER NOT NULL,
-    NAME_TASK VARCHAR(255),
-    TEXT_TASK VARCHAR(500),
-    DETHLINE_TASK TIMESTAMP,
-    CREATED_TASK TIMESTAMP,
-    STATUS_TASK VARCHAR(3),
-    EXEC_TASK BOOLEAN,
-    LAST_CORRECT_TASK TIMESTAMP,
-    ASSIGNED_TASK INTEGER,
-    DEPENDENCIES_TASK VARCHAR(11) CHARACTER SET NONE,
-    CONSTRAINT FK_TASKS_1 FOREIGN KEY (ASSIGNED_TASK) REFERENCES USERS (ID_US),
-    CONSTRAINT PK_TASKS PRIMARY KEY (ID_TASK)
-);
-
-CREATE OR ALTER SEQUENCE SEQ_TASKS_ID_TASK START WITH 0 INCREMENT BY 1;
-CREATE OR ALTER SEQUENCE SEQ_USERS_ID_US START WITH 0 INCREMENT BY 1;
-
-SET TERM ^;
-CREATE OR ALTER TRIGGER TASKS_BI
-  FOR TASKS BEFORE INSERT
-AS BEGIN END^
-
-SET TERM ;^
-
-SET TERM ^;
-CREATE OR ALTER TRIGGER USERS_BI
-  FOR USERS BEFORE INSERT
-AS BEGIN END^
-
-SET TERM ;^
-
-SET TERM ^;
-CREATE OR ALTER TRIGGER TASKS_BI FOR TASKS
-ACTIVE BEFORE INSERT POSITION 0
-AS
-BEGIN
-IF (NEW.ID_TASK IS NULL) THEN
-NEW.ID_TASK = GEN_ID(SEQ_TASKS_ID_TASK,1);
-END^
-SET TERM ;^
-
-SET TERM ^;
-CREATE OR ALTER TRIGGER USERS_BI FOR USERS
-ACTIVE BEFORE INSERT POSITION 0
-AS
-BEGIN
-IF (NEW.ID_US IS NULL) THEN
-NEW.ID_US = GEN_ID(SEQ_USERS_ID_US,1);
-END^
-SET TERM ;^
-
-EOL
-
-# Checking the successful creation of tables
-if [ $? -eq 0 ]; then
-    echo "The database has been successfully prepared."
-else
-    echo "Error when creating tables."
-fi
+echo "The database has been successfully prepared."
 
