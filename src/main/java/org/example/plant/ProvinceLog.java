@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.plant.protocol.Authorization;
 import org.example.plant.protocol.Metropolis;
+import org.example.plant.realization.BuildCapital;
 import org.example.plant.realization.LoginUser;
 
 public class ProvinceLog  {
@@ -32,8 +33,6 @@ public class ProvinceLog  {
     @FXML
     private PasswordField usepass_pf;
 
-    public Metropolis capitalWinController;
-
     @FXML
     void initialize() {
         entere_bt.setOnAction(event -> eLogActionButton());
@@ -42,7 +41,8 @@ public class ProvinceLog  {
     private void eLogActionButton() {
         if(!Objects.equals(usename_tf.getText(), "") && !Objects.equals(usepass_pf.getText(), "")) {
             Authorization user = LoginUser.getInstance();
-            user.setMetropolisController(this.capitalWinController);
+            Metropolis capitalWinController = BuildCapital.getInstance();
+            user.setMetropolisController(capitalWinController);
             user.loginUser(usename_tf.getText(), usepass_pf.getText());
             capitalWinController.tableToModel();
             Stage stage = (Stage) entere_bt.getScene().getWindow();

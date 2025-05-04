@@ -15,15 +15,6 @@ public class TaskWork implements Task {
     private String priority;
     private List<Task> dependencies;
 
-    private static Task instance;
-
-    public static Task getInstance() {
-        if (instance == null) {
-            instance = new TaskWork();
-        }
-        return instance;
-    }
-
     @Override
     public void initTask(int id, String nameTask, Timestamp deadline, boolean execTask, String priority) {
         this.id = id;

@@ -180,7 +180,6 @@ public class BuildCapital implements Metropolis {
             stageR.setTitle("Регистрация");
             stageR.setScene(new Scene(rootR));
             stageR.showAndWait();
-            // loginFlag = false;
         });
 
         enter_menb.setOnAction(actionEventLog -> {
@@ -189,8 +188,6 @@ public class BuildCapital implements Metropolis {
                 regLoaderLog.setLocation(ProvinceLog.class.getResource("enter.fxml"));
                 try {
                     Parent rootLog = regLoaderLog.load();
-                    ProvinceLog logController = regLoaderLog.getController(); // Получаем контроллер
-                    logController.capitalWinController = this; //  передаем ссылку на контроллер Metroplis
                     Stage stageLog = new Stage();
                     stageLog.setTitle("Вход");
                     stageLog.setScene(new Scene(rootLog));
@@ -208,8 +205,6 @@ public class BuildCapital implements Metropolis {
                 regLoaderAddTask.setLocation(ProvinceAddTask.class.getResource("addtask.fxml"));
                 try {
                     Parent rootAddTask = regLoaderAddTask.load();
-                    ProvinceAddTask addTaskController = regLoaderAddTask.getController(); // Получаем контроллер
-                    addTaskController.capitalWinCont = this; //  передаем ссылку на контроллер Metroplis
                     Stage stageAdd = new Stage();
                     stageAdd.setTitle("Добавить");
                     stageAdd.setScene(new Scene(rootAddTask));
@@ -274,8 +269,6 @@ public class BuildCapital implements Metropolis {
                 stutusLoader.setLocation(ProvinceStatus.class.getResource("status.fxml"));
                 try {
                     Parent rootStatus = stutusLoader.load();
-                    ProvinceStatus statusController = stutusLoader.getController(); // Получаем контроллер
-                    statusController.capitalWinCont = this; //  передаем ссылку на контроллер Metroplis
                     Stage stageStatus = new Stage();
                     stageStatus.setTitle("Статус");
                     stageStatus.setScene(new Scene(rootStatus));
@@ -294,8 +287,6 @@ public class BuildCapital implements Metropolis {
                 timeLoader.setLocation(ProvinceUpTime.class.getResource("uptime.fxml"));
                 try {
                     Parent rootTime = timeLoader.load();
-                    ProvinceUpTime timeController = timeLoader.getController(); // Получаем контроллер
-                    timeController.capitalWinCont = this; //  передаем ссылку на контроллер Metroplis
                     Stage stageTime = new Stage();
                     stageTime.setTitle("Дата и время");
                     stageTime.setScene(new Scene(rootTime));
@@ -310,13 +301,13 @@ public class BuildCapital implements Metropolis {
 
         plan_menb.setOnAction(actionEventPan -> {
             if (loginFlag) {
-                TaskScheduler scheduler = ComparePlans.getInstance(); // Исправлено с ComparePlans на TaskScheduler
+                TaskScheduler scheduler = new ComparePlans(); // Исправлено с ComparePlans на TaskScheduler
                 scheduler.initTaskScheduler();
                 Map<Integer, Task> taskMap = new HashMap<>();
 
                 for (int i = 0; i < tableView.getItems().size(); i++) {
                     // Создание новой задачи на основе элементов из tableView
-                    Task task = TaskWork.getInstance();
+                    Task task = new TaskWork();
                     task.initTask(
                             tableView.getItems().get(i).getIdTask(),
                             tableView.getItems().get(i).getNameTask(),
@@ -356,8 +347,6 @@ public class BuildCapital implements Metropolis {
                 mailLoader.setLocation(ProvinceMail.class.getResource("mail.fxml"));
                 try {
                     Parent rootMail = mailLoader.load();
-                    ProvinceMail mailController = mailLoader.getController(); // Получаем контроллер
-                    mailController.capitalWinCont = this; //  передаем ссылку на контроллер Metroplis
                     Stage stageMail = new Stage();
                     stageMail.setTitle("Сообщение");
                     stageMail.setScene(new Scene(rootMail));
@@ -374,8 +363,6 @@ public class BuildCapital implements Metropolis {
                 searchLoader.setLocation(ProvinceSearch.class.getResource("search.fxml"));
                 try {
                     Parent rootSearch = searchLoader.load();
-                    ProvinceSearch searchController = searchLoader.getController(); // Получаем контроллер
-                    searchController.capitalWinCont = this; //  передаем ссылку на контроллер Metroplis
                     Stage stageSearch = new Stage();
                     stageSearch.setTitle("Поиск");
                     stageSearch.setScene(new Scene(rootSearch));

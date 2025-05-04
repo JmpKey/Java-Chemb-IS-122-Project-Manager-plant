@@ -9,6 +9,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import org.example.plant.protocol.Metropolis;
 import org.example.plant.protocol.Status;
+import org.example.plant.realization.BuildCapital;
 import org.example.plant.realization.UpStatus;
 
 public class ProvinceStatus {
@@ -33,13 +34,12 @@ public class ProvinceStatus {
     @FXML
     private CheckBox ftask_cb;
 
-    public Metropolis capitalWinCont;
-
     @FXML
     void initialize() { setstatus_but.setOnAction(eventStatus -> eStatusActionButton()); }
 
     private void eStatusActionButton() {
         Status update = UpStatus.getInstance();
+        Metropolis capitalWinCont = BuildCapital.getInstance();
         update.updateStatus(capitalWinCont, statusl_rb, statush_rb, statussh_rb, ftask_cb);
     }
 }

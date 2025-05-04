@@ -8,15 +8,6 @@ import java.util.*;
 public class ComparePlans implements TaskScheduler {
     private List<Task> tasks;
 
-    private static TaskScheduler instance;
-
-    public static TaskScheduler getInstance() {
-        if (instance == null) {
-            instance = new ComparePlans();
-        }
-        return instance;
-    }
-
     @Override
     public void initTaskScheduler() {
         tasks = new ArrayList<>();
