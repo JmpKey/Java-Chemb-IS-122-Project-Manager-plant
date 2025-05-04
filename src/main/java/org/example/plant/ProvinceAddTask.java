@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import org.example.plant.protocol.CreateTask;
 import org.example.plant.protocol.DbCall;
 import org.example.plant.protocol.Metropolis;
+import org.example.plant.realization.BuildCapital;
 import org.example.plant.realization.DataBase;
 import org.example.plant.realization.NewTask;
 
@@ -92,10 +93,6 @@ public class ProvinceAddTask {
     @FXML
     private Label time_lab;
 
-    public Metropolis capitalWinCont;
-
-    //CreateTask newTask;
-
     @FXML
     void initialize() {
         addtask_but.setOnAction(event -> eLogActionAddButton());
@@ -103,6 +100,7 @@ public class ProvinceAddTask {
 
     private void eLogActionAddButton() {
         CreateTask newTask; // new
+        Metropolis capitalWinCont = BuildCapital.getInstance();
         newTask = NewTask.getInstance();
         newTask.setCapitalWinCont(capitalWinCont);
         newTask.setAddTaskWin(this);

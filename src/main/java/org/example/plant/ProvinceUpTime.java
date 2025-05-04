@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.plant.protocol.DateTame;
 import org.example.plant.protocol.Metropolis;
+import org.example.plant.realization.BuildCapital;
 import org.example.plant.realization.UpDateTime;
 
 public class ProvinceUpTime {
@@ -48,13 +49,12 @@ public class ProvinceUpTime {
     @FXML
     private TextField time2_tf;
 
-    public Metropolis capitalWinCont;
-
     @FXML
     void initialize() { ok_but.setOnAction(eventTime -> eTimeActionButton()); }
 
     void eTimeActionButton() {
         DateTame newDT = UpDateTime.getInstance();
+        Metropolis capitalWinCont = BuildCapital.getInstance();
         newDT.updateNewDateTime(capitalWinCont, dat1_tf, dat2_tf, dat3_tf, time1_tf, time2_tf);
     }
 }

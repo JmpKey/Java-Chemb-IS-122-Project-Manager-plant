@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.example.plant.protocol.Metropolis;
 import org.example.plant.protocol.Search;
+import org.example.plant.realization.BuildCapital;
 import org.example.plant.realization.SearchTask;
 
 public class ProvinceSearch {
@@ -27,8 +28,6 @@ public class ProvinceSearch {
     @FXML
     private TextField search_tag_tf;
 
-    public Metropolis capitalWinCont;
-
     @FXML
     void initialize() {
         kick_search_bt.setOnAction(event -> searchActionButton());
@@ -37,6 +36,7 @@ public class ProvinceSearch {
     void searchActionButton() {
         if(!Objects.equals(search_tag_tf.getText(), "")) {
             Search searchTask = SearchTask.getInstance();
+            Metropolis capitalWinCont = BuildCapital.getInstance();
             searchTask.goSearch(capitalWinCont, search_tag_tf.getText());
         }
     }
