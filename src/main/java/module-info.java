@@ -10,6 +10,7 @@ module org.example.plant {
     requires java.desktop;
     requires java.mail;
     requires java.activation;
+    requires org.jfree.jfreechart;
 
     opens org.example.plant to javafx.fxml;
     exports org.example.plant;

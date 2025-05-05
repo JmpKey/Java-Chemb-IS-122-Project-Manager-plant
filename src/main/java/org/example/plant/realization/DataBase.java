@@ -2,16 +2,14 @@ package org.example.plant.realization;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.example.plant.protocol.DbCall;
-import org.example.plant.protocol.Message;
-import org.example.plant.protocol.Model;
+import org.example.plant.protocol.*;
 
 import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 import java.util.Date;
 
 public class DataBase implements DbCall {
@@ -487,10 +485,77 @@ public class DataBase implements DbCall {
             if (resultSet.next()) {
                 address = resultSet.getString("EMAIL_US");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return address;
+    }
+
+    @Override
+    public void generateSolvedTasksReport(Generator generator) {
+        String query = "SELECT U.NAME_US AS USER_NAME, COUNT(*) AS SOLVED_COUNT FROM TASKS T JOIN USERS U ON T.ASSIGNED_TASK = U.ID_US WHERE T.EXEC_TASK = 'true' GROUP BY U.NAME_US";
+        Map<String, Integer> solvedTasks = new HashMap<>();
+
+        try (Statement stmt = udb.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                solvedTasks.put(rs.getString("USER_NAME"), rs.getInt("SOLVED_COUNT"));
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+
+        try {
+            generator.createChartS(solvedTasks, "Solved Tasks", "solved_tasks_chart.png");
+            generator.createHtmlReport("Solved Tasks", "solved_tasks_chart.png", "solved_tasks_report.html");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void generateUnsolvedTasksReport(Generator generator) {
+        String query = "SELECT U.NAME_US AS USER_NAME, COUNT(*) AS UNSOLVED_COUNT FROM TASKS T JOIN USERS U ON T.ASSIGNED_TASK = U.ID_US WHERE T.EXEC_TASK = 'false' GROUP BY U.NAME_US";
+        Map<String, Integer> unsolvedTasks = new HashMap<>();
+
+        try (Statement stmt = udb.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                unsolvedTasks.put(rs.getString("USER_NAME"), rs.getInt("UNSOLVED_COUNT"));
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+
+        try {
+            generator.createChartS(unsolvedTasks, "Unsolved Tasks", "unsolved_tasks_chart.png");
+            generator.createHtmlReport("Unsolved Tasks", "unsolved_tasks_chart.png", "unsolved_tasks_report.html");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Forwarding> getTasks(int userId, Timestamp startDate, Timestamp endDate) {
+        String query = "SELECT NAME_TASK, STATUS_TASK, EXEC_TASK " +
+                "FROM TASKS " +
+                "WHERE ASSIGNED_TASK = ? AND CREATED_TASK BETWEEN ? AND ?";
+
+        List<Forwarding> tasks = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = udb.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setTimestamp(2, startDate);
+            preparedStatement.setTimestamp(3, endDate);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String taskName = resultSet.getString("NAME_TASK");
+                String statusTask = resultSet.getString("STATUS_TASK"); // Добавлено получение статуса задачи
+                boolean isResolved = resultSet.getBoolean("EXEC_TASK");
+                Forwarding task = new ForwardingTask();
+
+                tasks.add(task.initForwardingTask(taskName, statusTask, isResolved)); // Используем конструктор
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+
+        return tasks;
     }
 }

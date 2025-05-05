@@ -2,9 +2,11 @@ package org.example.plant.protocol;
 
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface DbCall {
     void systemDB(boolean usControl);
@@ -46,4 +48,10 @@ public interface DbCall {
     String getPasswById(int idUs);
 
     String getEmailById(int idUs);
+
+    void generateSolvedTasksReport(Generator generator);
+
+    void generateUnsolvedTasksReport(Generator generator);
+
+    List<Forwarding> getTasks(int userId, Timestamp startDate, Timestamp endDate);
 }

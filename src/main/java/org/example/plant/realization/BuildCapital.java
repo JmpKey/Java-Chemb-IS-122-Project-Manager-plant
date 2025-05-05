@@ -372,5 +372,21 @@ public class BuildCapital implements Metropolis {
                 }
             } else { mesErr.showMessage("Вы не вошли!"); }
         });
+
+        report_menb.setOnAction(actionEventReport -> {
+            if (loginFlag) {
+                FXMLLoader reportLoader = new FXMLLoader();
+                reportLoader.setLocation(ProvinceReport.class.getResource("reportw.fxml"));
+                try {
+                    Parent rootReport = reportLoader.load();
+                    Stage stageReport = new Stage();
+                    stageReport.setTitle("Отчёт");
+                    stageReport.setScene(new Scene(rootReport));
+                    stageReport.showAndWait();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else { mesErr.showMessage("Вы не вошли!"); }
+        });
     }
 }
