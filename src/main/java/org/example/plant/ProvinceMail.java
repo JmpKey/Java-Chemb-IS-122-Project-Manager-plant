@@ -1,6 +1,5 @@
 package org.example.plant;
 
-import java.io.File;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -12,8 +11,6 @@ import org.example.plant.protocol.EMailCall;
 import org.example.plant.protocol.Metropolis;
 import org.example.plant.realization.BuildCapital;
 import org.example.plant.realization.EmailSender;
-
-import javax.swing.*;
 
 public class ProvinceMail {
     @FXML

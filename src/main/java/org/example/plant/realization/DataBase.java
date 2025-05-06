@@ -19,6 +19,7 @@ public class DataBase implements DbCall {
     private String usnameG;
     private String uspassG;
     private Message message;
+    private Validate param;
 
     private static DbCall instance;
 
@@ -34,6 +35,7 @@ public class DataBase implements DbCall {
     @Override
     public void systemDB(boolean flagUs) {
         ConfigReader configReader = ConfigReader.getInstance();
+        param = ValidateParameters.getInstance();
 
         try {
             List<String> configValues = configReader.readConfigValuesDb();
@@ -217,7 +219,10 @@ public class DataBase implements DbCall {
     public void insertTask(String nameTask, String textTask, Timestamp deadlineTask,
                            Timestamp createdTask, String statusTask, boolean execTask,
                            Timestamp lastCorrectTask, int assignedTask, String dependenciesTask) {
-
+        if (!param.validateInsertTask(nameTask, textTask, deadlineTask, createdTask, statusTask, execTask, lastCorrectTask, assignedTask, dependenciesTask)) {
+            message.showMessage("Некорректные параметры задачи.");
+            return; // Или выбросить исключение
+        }
         int idTask = getNextUserId(udb, "TASKS", "ID_TASK");
 
         String insertSQL = "INSERT INTO TASKS (ID_TASK, NAME_TASK, TEXT_TASK, DETHLINE_TASK, CREATED_TASK, " +
@@ -370,6 +375,12 @@ public class DataBase implements DbCall {
 
     @Override
     public void updateTaskDeathline(int assignedTaskId, int curentTask, String newDeadlineString) {
+        if (!param.validateupdateNewDateTime(assignedTaskId, curentTask, newDeadlineString))
+        {
+            message.showMessage("Некорректные параметры задачи.");
+            return; // Или выбросить исключение
+        }
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); // dd-MM-yyyy  yyyy-MM-dd
 
         try {
