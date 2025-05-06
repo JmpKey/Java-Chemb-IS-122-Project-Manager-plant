@@ -147,7 +147,6 @@ public class DataBase implements DbCall {
         try {
             if(statement.executeUpdate(sql) == 0) { System.out.println(errorMessage + "v"); }
         } catch (SQLException e) {
-
             message.showMessage(errorMessage + " " + e.getMessage());
         }
     }
@@ -223,6 +222,9 @@ public class DataBase implements DbCall {
             message.showMessage("Некорректные параметры задачи.");
             return; // Или выбросить исключение
         }
+
+        if (dependenciesTask.equals("0")) { dependenciesTask = ""; }
+
         int idTask = getNextUserId(udb, "TASKS", "ID_TASK");
 
         String insertSQL = "INSERT INTO TASKS (ID_TASK, NAME_TASK, TEXT_TASK, DETHLINE_TASK, CREATED_TASK, " +
@@ -246,7 +248,7 @@ public class DataBase implements DbCall {
                 System.out.println("A new task was inserted successfully!");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            message.showMessage(e.getMessage());
         }
     }
 
