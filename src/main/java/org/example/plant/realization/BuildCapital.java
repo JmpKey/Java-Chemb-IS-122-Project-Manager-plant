@@ -78,6 +78,11 @@ public class BuildCapital implements Metropolis {
     }
 
     @Override
+    public boolean isLoginFlag() {
+        return loginFlag;
+    }
+
+    @Override
     public void setTableView(TableView<Model> tableView) {
         this.tableView = tableView;
     }

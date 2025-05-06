@@ -18,6 +18,8 @@ public class PasswordManager implements Enigma {
         return instance;
     }
 
+    public static void setInstance(Enigma testInstance) { instance = testInstance; }
+
     @Override
     public SecretKey generateKey(String key1, String key2) throws Exception {
         // Объединяем ключи и создаем хэш
