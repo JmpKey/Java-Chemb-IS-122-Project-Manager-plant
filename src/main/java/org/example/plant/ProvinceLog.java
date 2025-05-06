@@ -10,9 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.plant.protocol.Authorization;
+import org.example.plant.protocol.Message;
 import org.example.plant.protocol.Metropolis;
 import org.example.plant.realization.BuildCapital;
 import org.example.plant.realization.LoginUser;
+import org.example.plant.realization.MesErrEntrance;
 
 public class ProvinceLog  {
     @FXML
@@ -47,6 +49,9 @@ public class ProvinceLog  {
             capitalWinController.tableToModel();
             Stage stage = (Stage) entere_bt.getScene().getWindow();
             stage.close(); // Закрываем окно входа
-        } else { System.out.println("Неверные данные."); }
+        } else {
+            Message errWin = MesErrEntrance.getInstance();
+            errWin.showMessage("Неверные данные");
+        }
     }
 }

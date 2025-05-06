@@ -56,5 +56,6 @@ public class ProvinceReg {
                 }
             }
         }
+        else { System.out.println("Неверные данные."); }
     }
 }
