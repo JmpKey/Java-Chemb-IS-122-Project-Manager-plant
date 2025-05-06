@@ -28,7 +28,7 @@ public class ConfigReader implements Adjustment {
         List<String> values = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\[\\w+\\] = \\[(.+)\\]"); // Regex для поиска значений
 
-        String filePath = "connect.conf";
+        String filePath = "conf/connect.conf";
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -43,7 +43,7 @@ public class ConfigReader implements Adjustment {
 
     @Override
     public List<String> readConfigValuesMail() {
-        String filePath = "mail.conf";
+        String filePath = "conf/mail.conf";
         List<String> values = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -68,7 +68,7 @@ public class ConfigReader implements Adjustment {
     }
 
     public void userRemoval(Connection connection) {
-        String filePath = "guru_secession";
+        String filePath = "conf/guru_secession";
 
         File file = new File(filePath);
         if (!file.exists()) {

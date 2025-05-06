@@ -30,6 +30,10 @@ public class DataBase implements DbCall {
         return instance;
     }
 
+    public static void setInstance(DbCall testDB) {
+        instance = testDB;
+    }
+
     public DataBase() { }
 
     @Override
@@ -517,8 +521,11 @@ public class DataBase implements DbCall {
         } catch (SQLException e) { e.printStackTrace(); }
 
         try {
-            generator.createChartS(solvedTasks, "Solved Tasks", "solved_tasks_chart.png");
-            generator.createHtmlReport("Solved Tasks", "solved_tasks_chart.png", "solved_tasks_report.html");
+            String timestamp = new SimpleDateFormat("ydd_MM_yyyy").format(new Date());
+            String chartFileName = "reports/solved_tasks_chart_" + timestamp + ".png";
+            String htmlReportFileName = "reports/solved_tasks_report_" + timestamp + ".html";
+            generator.createChartS(solvedTasks, "Solved Tasks", chartFileName);
+            generator.createHtmlReport("Solved Tasks", chartFileName.substring(8), htmlReportFileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -536,8 +543,11 @@ public class DataBase implements DbCall {
         } catch (SQLException e) { e.printStackTrace(); }
 
         try {
-            generator.createChartS(unsolvedTasks, "Unsolved Tasks", "unsolved_tasks_chart.png");
-            generator.createHtmlReport("Unsolved Tasks", "unsolved_tasks_chart.png", "unsolved_tasks_report.html");
+            String timestamp = new SimpleDateFormat("ydd_MM_yyyy").format(new Date());
+            String chartFileName = "reports/unsolved_tasks_chart_" + timestamp + ".png";
+            String htmlReportFileName = "reports/unsolved_tasks_report_" + timestamp + ".html";
+            generator.createChartS(unsolvedTasks, "Unsolved Tasks", chartFileName);
+            generator.createHtmlReport("Unsolved Tasks", chartFileName.substring(8), htmlReportFileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -88,7 +88,10 @@ public class StatisticsGenerator implements Generator {
             Timestamp endD = new Timestamp(parsedDate2.getTime());
 
             List<Forwarding> tasks = base.getTasks(base.getUserIdByName(userName), startD, endD);
-            generateHtmlReport(userName, tasks, "task_report.html");
+
+            String timestamp = new SimpleDateFormat("ydd_MM_yyyy").format(new Date());
+            String htmlReportFileName = "reports/task_report_" + userName + "_" + timestamp + ".html";
+            generateHtmlReport(userName, tasks, htmlReportFileName);
         } catch (IOException e) {
             e.printStackTrace();
         }

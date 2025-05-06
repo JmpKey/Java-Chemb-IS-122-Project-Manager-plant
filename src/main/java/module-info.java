@@ -11,6 +11,8 @@ module org.example.plant {
     requires java.mail;
     requires java.activation;
     requires org.jfree.jfreechart;
+    //requires org.mockito;
+    //requires org.junit.jupiter.api;
 
     opens org.example.plant to javafx.fxml;
     exports org.example.plant;

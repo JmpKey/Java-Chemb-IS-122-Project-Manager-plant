@@ -37,4 +37,6 @@ public interface Metropolis {
     String getToEmail();
 
     void search(String searchTerm);
+
+    boolean isLoginFlag();
 }
