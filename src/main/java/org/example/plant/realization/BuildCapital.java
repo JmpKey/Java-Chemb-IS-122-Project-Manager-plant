@@ -351,9 +351,9 @@ public class BuildCapital implements Metropolis {
                     stageMail.setTitle("Сообщение");
                     stageMail.setScene(new Scene(rootMail));
                     stageMail.showAndWait();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
             } else { mesErr.showMessage("Вы не вошли!"); }
         });
 

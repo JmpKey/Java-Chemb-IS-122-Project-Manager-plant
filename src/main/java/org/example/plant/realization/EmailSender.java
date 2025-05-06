@@ -1,6 +1,5 @@
 package org.example.plant.realization;
 
-import org.example.plant.ProvinceMail;
 import org.example.plant.protocol.EMailCall;
 import org.example.plant.protocol.Metropolis;
 
@@ -23,6 +22,7 @@ import java.util.Properties;
 public class EmailSender implements EMailCall {
     private Metropolis capitalWinController;
     private String file;
+    private final org.example.plant.protocol.Message mes = MesErrEntrance.getInstance();
 
     private static EMailCall instance;
 
@@ -81,8 +81,8 @@ public class EmailSender implements EMailCall {
             };
             Session session = Session.getInstance(props, auth);
 
-            sendEmail(session, fromEmail, fromUserName, toEmail,themeMail, textMail);
-        }
+            sendEmail(session, fromEmail, fromUserName, toEmail, themeMail, textMail);
+        } else { mes.showMessage("Проблема конфигурации."); }
     }
 
     @Override
@@ -130,7 +130,7 @@ public class EmailSender implements EMailCall {
             Transport.send(msg);
             System.out.println("EMail Sent Successfully" + (file != null && !file.isEmpty() ? " with attachment!!" : "!!"));
         } catch (MessagingException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+            mes.showMessage(e.getMessage());
         }
     }
 }

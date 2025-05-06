@@ -39,6 +39,10 @@ public class ValidateParameters implements Validate {
             return false;
         }
 
+        if (!dependenciesTask.matches("(\\d+)(,(\\d+))*") && !dependenciesTask.equals("0")) {
+            return false;
+        }
+
         // Если все проверки пройдены, возвращаем true
         return true;
     }

@@ -35,7 +35,7 @@ dbsu - database superuser name,
 dbsupass - database superuser role,
 dbcname - database path (in Windows NT must be replaced).
 
-Etdit the */plant/mail.conf file (initial email support):
+Etdit the */plant/mail.conf file:
 mail_smtp_host - SMTP host address,
 mail_smtp_port - SMTP port,
 mail_smtp_auth - authentication,
