@@ -1,6 +1,7 @@
 package org.example.plant.realization;
 
 import org.example.plant.protocol.DbCall;
+import org.example.plant.protocol.FileNGen;
 import org.example.plant.protocol.Forwarding;
 import org.example.plant.protocol.Generator;
 import org.jfree.chart.ChartFactory;
@@ -89,8 +90,9 @@ public class StatisticsGenerator implements Generator {
 
             List<Forwarding> tasks = base.getTasks(base.getUserIdByName(userName), startD, endD);
 
-            String timestamp = new SimpleDateFormat("ydd_MM_yyyy").format(new Date());
-            String htmlReportFileName = "reports/task_report_" + userName + "_" + timestamp + ".html";
+            FileNGen merge = MergeGen.getInstance();
+            String htmlReportFileName = merge.mergeName("reports/task_report_") + "_" + userName + ".html";
+
             generateHtmlReport(userName, tasks, htmlReportFileName);
         } catch (IOException e) {
             e.printStackTrace();

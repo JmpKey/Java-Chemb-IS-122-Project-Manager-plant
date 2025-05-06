@@ -2,7 +2,7 @@
 
 # The path to the SQL files
 SQL_DIR="$(dirname "$(realpath "$0")")/sql" # Specify the path to the directory with the SQL files here
-DB_FILE="/tmp/db.fdb"
+DB_FILE="/tmp/ptdb.fdb"
 echo "Running an SQL script to prepare the database..."
 
 # Creating a database

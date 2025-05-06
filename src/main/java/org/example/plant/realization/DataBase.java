@@ -521,11 +521,12 @@ public class DataBase implements DbCall {
         } catch (SQLException e) { e.printStackTrace(); }
 
         try {
-            String timestamp = new SimpleDateFormat("ydd_MM_yyyy").format(new Date());
-            String chartFileName = "reports/solved_tasks_chart_" + timestamp + ".png";
-            String htmlReportFileName = "reports/solved_tasks_report_" + timestamp + ".html";
-            generator.createChartS(solvedTasks, "Solved Tasks", chartFileName);
-            generator.createHtmlReport("Solved Tasks", chartFileName.substring(8), htmlReportFileName);
+            FileNGen merge = MergeGen.getInstance();
+            String chartFileName = merge.mergeName("reports/solved_tasks_chart_") + ".png";
+            String htmlReportFileName = merge.mergeName("reports/solved_tasks_report_") + ".html";
+            generator.createChartS(solvedTasks, "Решёные задачи", chartFileName);
+
+            generator.createHtmlReport("Решёные задачи", chartFileName.substring(8), htmlReportFileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -543,11 +544,11 @@ public class DataBase implements DbCall {
         } catch (SQLException e) { e.printStackTrace(); }
 
         try {
-            String timestamp = new SimpleDateFormat("ydd_MM_yyyy").format(new Date());
-            String chartFileName = "reports/unsolved_tasks_chart_" + timestamp + ".png";
-            String htmlReportFileName = "reports/unsolved_tasks_report_" + timestamp + ".html";
-            generator.createChartS(unsolvedTasks, "Unsolved Tasks", chartFileName);
-            generator.createHtmlReport("Unsolved Tasks", chartFileName.substring(8), htmlReportFileName);
+            FileNGen merge = MergeGen.getInstance();
+            String chartFileName = merge.mergeName("reports/unsolved_tasks_chart_") + ".png";
+            String htmlReportFileName = merge.mergeName("reports/unsolved_tasks_report_") + ".html";
+            generator.createChartS(unsolvedTasks, "Нерешённые задачи", chartFileName);
+            generator.createHtmlReport("Нерешённые задачи", chartFileName.substring(8), htmlReportFileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
