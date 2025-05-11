@@ -387,7 +387,7 @@ public class DataBase implements DbCall {
             return; // Или выбросить исключение
         }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); // dd-MM-yyyy  yyyy-MM-dd
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // dd-MM-yyyy  yyyy-MM-dd
 
         try {
             // 1.  Подготовка SQL запроса
