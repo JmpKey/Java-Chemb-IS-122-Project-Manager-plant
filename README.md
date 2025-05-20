@@ -43,6 +43,8 @@ mail_smtp_starttls_enable - secure message transmission,
 power_mail - enable or disable working with email.
 
 # Dependencies
+This software is licensed under the GNU General Public License version 2.0.
+
 * jaybird (LGPL 2.1 or later, BSD 3-clause): https://github.com/FirebirdSQL/jaybird
 
 * javax-mail (GPL 2.0, CDDL 1.1): https://github.com/javaee/javamail
