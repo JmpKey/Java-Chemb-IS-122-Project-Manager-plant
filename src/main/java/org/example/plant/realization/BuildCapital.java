@@ -122,24 +122,23 @@ public class BuildCapital implements Metropolis {
 
     @Override
     public void search(String searchTerm) {
-        // Создаем новый FilteredList, который будет фильтровать tasks
+        // Creating a new filteredList that will filter tasks
         FilteredList<Model> filteredData = new FilteredList<>(application.getDb().fetchTasksFromDB(), p -> true);
 
-        // Устанавливаем фильтр
+        // Installing the filter
         filteredData.setPredicate(model -> {
-            // Если нет строки для поиска, показываем все элементы
+            // If there is no search bar, we show all the elements.
         if (searchTerm == null || searchTerm.isEmpty()) {
             return true;
         }
 
-        // Сравниваем строку поиска с нужными полями модели
+        // Comparing the search bar with the required fields of the model
         String lowerCaseFilter = searchTerm.toLowerCase();
 
-        // Предположим, что у вас есть метод getName() в вашей модели
             return model.getNameTask().toLowerCase().contains(lowerCaseFilter);
         });
 
-        // Обновляем TableView с отфильтрованными данными
+        // Updating the TableView with filtered data
         tableView.setItems(filteredData);
     }
 
@@ -157,7 +156,7 @@ public class BuildCapital implements Metropolis {
         assignedTask.setCellValueFactory(new PropertyValueFactory<>("assignedTask"));
         dependenciesTask.setCellValueFactory(new PropertyValueFactory<>("dependenciesTask"));
 
-        // Обработчик события для получения индекса выбранной строки
+        // Event handler for getting the index of the selected row
         tableView.setOnMouseClicked(event -> {
             selectedIndex = tableView.getSelectionModel().getSelectedIndex();
             if (selectedIndex >= 0) {
@@ -259,7 +258,7 @@ public class BuildCapital implements Metropolis {
             if (loginFlag) {
                 int idUs = tableView.getItems().get(selectedIndex).getAssignedTask();
                 if (Objects.equals(application.getUsnameG(), application.getDb().getUserNameById(idUs))) {
-                    //application.getDb().deleteTaskForUser(idUs); // удаляет всё созданное пользователем
+                    //application.getDb().deleteTaskForUser(idUs); // deletes everything created by the user
                     application.getDb().deleteTaskForId(tableView.getItems().get(selectedIndex).getIdTask());
                     tableToModel();
                 }
@@ -306,12 +305,12 @@ public class BuildCapital implements Metropolis {
 
         plan_menb.setOnAction(actionEventPan -> {
             if (loginFlag) {
-                TaskScheduler scheduler = new ComparePlans(); // Исправлено с ComparePlans на TaskScheduler
+                TaskScheduler scheduler = new ComparePlans();
                 scheduler.initTaskScheduler();
                 Map<Integer, Task> taskMap = new HashMap<>();
 
                 for (int i = 0; i < tableView.getItems().size(); i++) {
-                    // Создание новой задачи на основе элементов из tableView
+                    // Creating a new task based on elements from a tableView
                     Task task = new TaskWork();
                     task.initTask(
                             tableView.getItems().get(i).getIdTask(),
@@ -322,7 +321,7 @@ public class BuildCapital implements Metropolis {
                     );
 
                     taskMap.put(task.getId(), task);
-                    // Добавляем зависимости для задач
+                    // Adding dependencies for tasks
                     task.addDependenciesFromString(tableView.getItems().get(i).getDependenciesTask(), taskMap);
                     scheduler.addTask(task);
                 }

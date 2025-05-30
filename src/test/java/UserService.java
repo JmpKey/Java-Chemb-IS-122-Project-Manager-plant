@@ -7,7 +7,6 @@ public class UserService {
     private boolean loginFlag;
     private String ePass;
 
-    //@Override
     public void initUserData(String user, String pass) {
         application = (AppLIPC) AppLIPC.getInstance();
         application.setUsnameG(user);

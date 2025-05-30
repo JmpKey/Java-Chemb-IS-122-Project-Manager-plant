@@ -26,7 +26,7 @@ public class ConfigReader implements Adjustment {
     @Override
     public List<String> readConfigValuesDb() throws IOException {
         List<String> values = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\[\\w+\\] = \\[(.+)\\]"); // Regex для поиска значений
+        Pattern pattern = Pattern.compile("\\[\\w+\\] = \\[(.+)\\]"); // Regex to search for values
 
         String filePath = "conf/connect.conf";
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -34,7 +34,7 @@ public class ConfigReader implements Adjustment {
             while ((line = reader.readLine()) != null) {
                 Matcher matcher = pattern.matcher(line);
                 if (matcher.matches()) {
-                    values.add(matcher.group(1)); // Извлекаем текст в скобках
+                    values.add(matcher.group(1)); // Extract the text in parentheses
                 }
             }
         }
@@ -49,19 +49,19 @@ public class ConfigReader implements Adjustment {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                // Удаляем пробелы и проверяем, что строка не пустая
+                // remove the spaces and check that the string is not empty.
                 line = line.trim();
                 if (!line.isEmpty()) {
-                    // Извлекаем значение из строки, удаляя ключ и разделители
+                    // Extracting the value from the string by removing the key and delimiters
                     String[] parts = line.split("=");
                     if (parts.length == 2) {
-                        String value = parts[1].trim().replaceAll("[\\[\\]]", ""); // Удаляем квадратные скобки
+                        String value = parts[1].trim().replaceAll("[\\[\\]]", ""); // Removing the square brackets
                         values.add(value);
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Обработка исключений
+            e.printStackTrace(); // Exception handling
         }
 
         return values;
@@ -79,13 +79,13 @@ public class ConfigReader implements Adjustment {
 
             String username;
             while ((username = br.readLine()) != null) {
-                // Получаем ID пользователя по имени
+                // We get the user ID by name
                 DataBase base = new DataBase();
                 Integer userId = base.getUserIdByUserNameDel(connection, username.trim());
                 if (userId != null) {
-                    base.clearAssignedTasks(connection, userId); // Очищаем поля ASSIGNED_TASK в TASKS
-                    base.deleteUser(connection, userId); // Удаляем данные пользователя
-                    base.deleteUserFromBd(connection, username); // Помянем и забудем
+                    base.clearAssignedTasks(connection, userId); // Clearing the ASSIGNED_TASK fields in TASKS
+                    base.deleteUser(connection, userId); // Deleting user data
+                    base.deleteUserFromBd(connection, username); // Let's remember and forget
                 }
             }
         } catch (SQLException | IOException e) {

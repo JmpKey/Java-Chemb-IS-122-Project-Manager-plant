@@ -21,7 +21,6 @@ public class ValidateParameters implements Validate {
                                       Timestamp createdTask, String statusTask, boolean execTask,
                                       Timestamp lastCorrectTask, int assignedTask, String dependenciesTask) {
 
-        // Проверка строковых параметров на null и на пустоту
         if (nameTask == null || nameTask.isEmpty() ||
                 textTask == null || textTask.isEmpty() ||
                 statusTask == null || statusTask.isEmpty() ||
@@ -29,13 +28,11 @@ public class ValidateParameters implements Validate {
             return false;
         }
 
-        // Проверка временных меток на null
         if (deadlineTask == null || createdTask == null || lastCorrectTask == null) {
             return false;
         }
 
-        // Проверка целочисленного параметра
-        if (assignedTask < 0) { // Предположим, что assignedTask не может быть отрицательным
+        if (assignedTask < 0) {
             return false;
         }
 
@@ -43,32 +40,32 @@ public class ValidateParameters implements Validate {
             return false;
         }
 
-        // Если все проверки пройдены, возвращаем true
+        // If all checks are passed, we return true
         return true;
     }
 
     @Override
     public boolean validateupdateNewDateTime(int assignedTaskId, int curentTask, String newDeadlineString) {
-        // Проверка на корректность идентификаторов задач
+        // Checking for the correctness of issue IDs
         if (assignedTaskId < 0 || curentTask < 0) {
-            return false; // ID задач не могут быть отрицательными
+            return false; // Task IDs cannot be negative
         }
 
-        // Проверка на корректность строки даты
+        // Checking for the correctness of the date string
         if (newDeadlineString == null || newDeadlineString.isEmpty()) {
-            return false; // Строка не должна быть пустой или null
+            return false; // The string must not be empty or null
         }
 
-        // Проверка формата даты
+        // Checking the date format
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        dateFormat.setLenient(false); // Устанавливаем строгий режим для проверки формата
+        dateFormat.setLenient(false); // Setting a strict mode for format verification
 
         try {
-            dateFormat.parse(newDeadlineString); // Если парсинг пройдет успешно, формат корректен
+            dateFormat.parse(newDeadlineString); // If the parsing is successful, the format is correct
         } catch (ParseException e) {
-            return false; // Если возникло исключение, формат некорректен
+            return false; // If an exception occurs, the format is incorrect.
         }
 
-        return true; // Все проверки пройдены успешно
+        return true; // All checks passed successfully
     }
 }

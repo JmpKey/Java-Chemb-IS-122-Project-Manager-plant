@@ -54,26 +54,26 @@ public class TaskWork implements Task {
     @Override
     public int getPriorityValue() {
         return switch (priority) {
-            case "sh" -> 3; // высокий
-            case "h" -> 2; // средний
-            case "l" -> 1; // низкий
-            default -> 0; // неопределенный приоритет
+            case "sh" -> 3; // high
+            case "h" -> 2; // average
+            case "l" -> 1; // low
+            default -> 0; // undefined priority
         };
     }
 
     @Override
     public int getId() {
-        return id; // возвращаем id
+        return id;
     }
 
     @Override
     public boolean isExecTask() {
-        return execTask; // возвращаем execTask
+        return execTask;
     }
 
     @Override
     public List<Task> getDependencies() {
-        return dependencies; // возвращаем зависимости
+        return dependencies;
     }
 
     @Override

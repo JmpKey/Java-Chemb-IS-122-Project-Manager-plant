@@ -42,18 +42,18 @@ public class NewTask implements CreateTask {
     public Timestamp toTimestamp(String dateString, String monthString, String yearString, String hourString, String minuteString) {
         String dateTimeString = String.format("%s.%s.%s %s:%s", dateString, monthString, yearString, hourString, minuteString);
 
-        // Указываем формат даты с полным годом
+        // We specify the date format with the full year
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         Timestamp timestamp = null;
 
         try {
-            // Парсим строку в дату
+            // Parsing a string into a date
             Date parsedDate = format.parse(dateTimeString);
 
-            // Преобразуем дату в Timestamp
+            // Converting the date to a Timestamp
             timestamp = new Timestamp(parsedDate.getTime());
 
-            // Выводим результат
+            // Output the result
             System.out.println("Timestamp: " + timestamp);
         } catch (ParseException e) {
             e.printStackTrace();

@@ -61,11 +61,11 @@ public class StatisticsGenerator implements Generator {
         try (FileWriter writer = new FileWriter(filename)) {
             writer.write("<html><head><title>Отчёт по задачам</title></head><body>");
             writer.write("<h1>Отчёт по задачам пользователя: " + user + "</h1>");
-            writer.write("<table border='1'><tr><th>Название</th><th>Статус</th><th>Статус выполения</th></tr>"); // Добавлено поле Resolution Status
+            writer.write("<table border='1'><tr><th>Название</th><th>Статус</th><th>Статус выполения</th></tr>");
 
             for (Forwarding task : tasks) {
                 String status = task.isResolved() ? "Выполненно" : "Не выполненно";
-                writer.write("<tr><td>" + task.getName() + "</td><td>" + task.getStatus() + "</td><td>" + status + "</td></tr>"); // Отображение статуса задачи и статуса выполнения
+                writer.write("<tr><td>" + task.getName() + "</td><td>" + task.getStatus() + "</td><td>" + status + "</td></tr>"); // Task status and completion status display
             }
 
             writer.write("</table></body></html>");
@@ -77,7 +77,7 @@ public class StatisticsGenerator implements Generator {
     public void generateTaskReport(DbCall base, String userName, String startDate, String endDate) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss"); // dd-MM-yyyy  yyyy-MM-dd
-            Date parsedDate1 = null; // Получаем java.util.Date
+            Date parsedDate1 = null; // Get java.util.Date
             Date parsedDate2 = null;
             try {
                 parsedDate1 = dateFormat.parse(startDate);
@@ -85,7 +85,7 @@ public class StatisticsGenerator implements Generator {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            Timestamp startD = new Timestamp(parsedDate1.getTime());  // Преобразуем в java.sql.Timestamp
+            Timestamp startD = new Timestamp(parsedDate1.getTime());  // Convert to java.sql.Timestamp
             Timestamp endD = new Timestamp(parsedDate2.getTime());
 
             List<Forwarding> tasks = base.getTasks(base.getUserIdByName(userName), startD, endD);

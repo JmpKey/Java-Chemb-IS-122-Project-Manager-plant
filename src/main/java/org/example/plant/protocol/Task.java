@@ -15,11 +15,11 @@ public interface Task {
 
     int getPriorityValue();
 
-    int getId(); // Добавляем геттер для id
+    int getId(); // Adding a getter for the id
 
-    boolean isExecTask(); // Добавляем геттер для execTask
+    boolean isExecTask(); // Adding a getter for the execTask
 
-    List<Task> getDependencies(); // Добавляем геттер для dependencies
+    List<Task> getDependencies(); // Adding a getter for the dependencies
 
     String getNameTask();
 }

@@ -43,11 +43,11 @@ public class ComparePlans implements TaskScheduler {
         }
 
         if (visited.contains(task)) {
-            return; // Задача уже запланирована
+            return; // The task has already been scheduled
         }
 
         visited.add(task);
-        inStack.add(task); // Добавляем в стек текущую задачу
+        inStack.add(task); // Adding the current task to the stack
 
         for (Task dependency : task.getDependencies()) {
             if (!dependency.isExecTask()) {
@@ -55,7 +55,7 @@ public class ComparePlans implements TaskScheduler {
             }
         }
 
-        inStack.remove(task); // Убираем задачу из стека
+        inStack.remove(task); // Removing the task from the stacks
         sortedTasks.add(task);
     }
 }

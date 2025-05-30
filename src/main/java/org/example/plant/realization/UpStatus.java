@@ -21,7 +21,7 @@ public class UpStatus implements Status {
     public void updateStatus(Metropolis capitalWinCont, RadioButton statusl_rb, RadioButton statush_rb, RadioButton statussh_rb, CheckBox ftask_cb) {
         String status = null;
         boolean fsat = false;
-        // далее выполнить обновление статуса и время последнего изменения, статус наверно должны менять все пользователи хз
+        
         if (statusl_rb.isSelected()) { status = "l"; }
         if (statush_rb.isSelected()) { status = "h"; }
         if (statussh_rb.isSelected()) { status = "sh"; }

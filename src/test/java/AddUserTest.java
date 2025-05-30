@@ -20,9 +20,8 @@ public class AddUserTest {
         dbMock = mock(DbCall.class);
         enigmaMock = mock(Enigma.class);
 
-        // Замените реальные зависимости на моки
-        DataBase.setInstance(dbMock); // Предположим, что у вас есть метод для установки экземпляра базы данных
-        PasswordManager.setInstance(enigmaMock); // Предположим, что у вас есть метод для установки менеджера паролей
+        DataBase.setInstance(dbMock);
+        PasswordManager.setInstance(enigmaMock);
     }
 
     @Test
@@ -32,13 +31,10 @@ public class AddUserTest {
         String eMail = "test@example.com";
         String ePass = "securePassword";
 
-        // Настройка поведения мока
         when(enigmaMock.encryptPassword(ePass, userName, pass)).thenReturn("encryptedPassword");
 
-        // Вызов метода
         addUser.createNewUser(userName, pass, eMail, ePass);
 
-        // Проверка взаимодействия с моками
         verify(dbMock).systemDB(false);
         verify(dbMock).createNewUser(userName, pass, eMail, "encryptedPassword");
     }
@@ -50,19 +46,18 @@ public class AddUserTest {
         String eMail = "test@example.com";
         String ePass = "securePassword";
 
-        // Настройка поведения мока для выбрасывания исключения
+        // Configuring mock behavior to throw an exception
         try {
             when(enigmaMock.encryptPassword(ePass, userName, pass)).thenThrow(new RuntimeException("Encryption error"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        // Проверка на выброс исключения
+        // Checking for throwing an exception
         RuntimeException thrown = assertThrows(RuntimeException.class, () -> {
             addUser.createNewUser(userName, pass, eMail, ePass);
         });
 
-        // Проверка сообщения об ошибке
         assertEquals("Encryption error", thrown.getCause().getMessage());
     }
 }

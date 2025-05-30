@@ -22,7 +22,7 @@ public class PasswordManager implements Enigma {
 
     @Override
     public SecretKey generateKey(String key1, String key2) throws Exception {
-        // Объединяем ключи и создаем хэш
+        // Combine the keys and create a hash
         String combinedKey = key1 + key2;
         MessageDigest sha = MessageDigest.getInstance("SHA-256");
         byte[] key = sha.digest(combinedKey.getBytes("UTF-8"));

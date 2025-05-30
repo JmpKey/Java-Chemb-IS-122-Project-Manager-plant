@@ -40,18 +40,18 @@ public class EmailSender implements EMailCall {
     public void mailStart(String head, String mess) {
         JFileChooser fileChooser = new JFileChooser();
 
-        // Открываем диалоговое окно для выбора файла
+        // Open a dialog box to select a file
         int returnValue = fileChooser.showOpenDialog(null);
 
-        // Проверяем, был ли выбран файл
+        // Checking if a file has been selected
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            // Получаем выбранный файл
+            // Getting the selected file
             File selectedFile = fileChooser.getSelectedFile();
 
-            // Получаем путь к файлу
+            // Getting the file path
             file = selectedFile.getAbsolutePath();
 
-            // Выводим путь к файлу
+            // Output the path to the file
             System.out.println("Выбранный файл: " + file);
         } else {
             System.out.println("Файл не был выбран.");

@@ -224,7 +224,7 @@ public class DataBase implements DbCall {
                            Timestamp lastCorrectTask, int assignedTask, String dependenciesTask) {
         if (!param.validateInsertTask(nameTask, textTask, deadlineTask, createdTask, statusTask, execTask, lastCorrectTask, assignedTask, dependenciesTask)) {
             message.showMessage("Некорректные параметры задачи.");
-            return; // Или выбросить исключение
+            return; // Or throw an exception
         }
 
         if (dependenciesTask.equals("0")) { dependenciesTask = ""; }
@@ -258,7 +258,7 @@ public class DataBase implements DbCall {
 
     @Override
     public int getUserIdByName(String name) {
-        int userId = -1; // Значение по умолчанию, если пользователь не найден
+        int userId = -1; // Default value if the user is not found
         String query = "SELECT ID_US FROM USERS WHERE NAME_US = ?";
 
         try (PreparedStatement preparedStatement = udb.prepareStatement(query)) {
@@ -313,12 +313,12 @@ public class DataBase implements DbCall {
 
             System.out.println("Удалено задач: " + rowsAffected);
         } catch (SQLException se) {
-            // Обработка ошибок JDBC
+            // JDBC Error Handling
             System.err.println("SQLException: " + se.getMessage());
             System.err.println("SQLState: " + se.getSQLState());
             System.err.println("VendorError: " + se.getErrorCode());
 
-            // Попытка отката транзакции (если она была начата)
+            // An attempt to roll back a transaction (if it was initiated)
             if (udb != null) {
                 try {
                     udb.rollback();
@@ -336,9 +336,9 @@ public class DataBase implements DbCall {
 
         try (PreparedStatement preparedStatement = udb.prepareStatement(deleteSQL)) {
 
-            preparedStatement.setInt(1, idTask); // Установка значения ID_TASK
+            preparedStatement.setInt(1, idTask); // Setting the ID_TASK value
 
-            int rowsAffected = preparedStatement.executeUpdate(); // Выполнение запроса
+            int rowsAffected = preparedStatement.executeUpdate(); // Request Execution
 
             if (rowsAffected > 0) {
                 System.out.println("Запись успешно удалена.");
@@ -384,31 +384,28 @@ public class DataBase implements DbCall {
         if (!param.validateupdateNewDateTime(assignedTaskId, curentTask, newDeadlineString))
         {
             message.showMessage("Некорректные параметры задачи.");
-            return; // Или выбросить исключение
+            return;
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // dd-MM-yyyy  yyyy-MM-dd
 
         try {
-            // 1.  Подготовка SQL запроса
             String sql = "UPDATE TASKS SET DETHLINE_TASK = ?, LAST_CORRECT_TASK = ? WHERE ID_TASK = ? AND ASSIGNED_TASK = ?";
             PreparedStatement preparedStatement = udb.prepareStatement(sql);
 
-            // 2.  Преобразование даты из строки в java.sql.Timestamp
-            Date parsedDate = dateFormat.parse(newDeadlineString); // Получаем java.util.Date
-            Timestamp newDeadlineTimestamp = new Timestamp(parsedDate.getTime());  // Преобразуем в java.sql.Timestamp
+            // Converting a date from a string to java.sql.Timestamp
+            Date parsedDate = dateFormat.parse(newDeadlineString); // Getting java.util.Date
+            Timestamp newDeadlineTimestamp = new Timestamp(parsedDate.getTime());  // Convert to java.sql.Timestamp
             Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
-            // 3. Установка параметров в SQL запрос
+            // Setting parameters in an SQL query
             preparedStatement.setTimestamp(1, newDeadlineTimestamp);
             preparedStatement.setTimestamp(2, currentTimestamp);
             preparedStatement.setInt(3, curentTask);
             preparedStatement.setInt(4, assignedTaskId);
 
-            // 4. Выполнение запроса
             int rowsUpdated = preparedStatement.executeUpdate();
 
-            // 5. Проверка результата
             if (rowsUpdated > 0) {
                 System.out.println("Задача успешно обновлена.");
             } else {
@@ -417,7 +414,7 @@ public class DataBase implements DbCall {
 
         } catch (SQLException e) {
             System.err.println("Ошибка при работе с базой данных: " + e.getMessage());
-            e.printStackTrace(); // Важно выводить stack trace для отладки
+            e.printStackTrace(); // It is important to output a stack trace for debugging
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -432,7 +429,7 @@ public class DataBase implements DbCall {
                 return rs.getInt("ID_US");
             }
         }
-        return null; // Пользователь не найден
+        return null; // The user was not found
     }
 
     public void deleteUser(Connection connection, Integer userId) throws SQLException {
@@ -455,10 +452,9 @@ public class DataBase implements DbCall {
         try {
             Statement statement = connection.createStatement();
 
-            // SQL команда для удаления пользователя
+            // SQL command to delete a user
             String sql = "DROP USER " + usNameDrop;
 
-            // Выполнение SQL команды
             statement.executeUpdate(sql);
             System.out.println("Пользователь " + usNameDrop + " успешно удален.");
 
@@ -572,11 +568,11 @@ public class DataBase implements DbCall {
 
             while (resultSet.next()) {
                 String taskName = resultSet.getString("NAME_TASK");
-                String statusTask = resultSet.getString("STATUS_TASK"); // Добавлено получение статуса задачи
+                String statusTask = resultSet.getString("STATUS_TASK");
                 boolean isResolved = resultSet.getBoolean("EXEC_TASK");
                 Forwarding task = new ForwardingTask();
 
-                tasks.add(task.initForwardingTask(taskName, statusTask, isResolved)); // Используем конструктор
+                tasks.add(task.initForwardingTask(taskName, statusTask, isResolved)); // Using the constructor
             }
         } catch (SQLException e) { e.printStackTrace(); }
 

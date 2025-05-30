@@ -48,7 +48,7 @@ public class ProvinceLog  {
             user.loginUser(usename_tf.getText(), usepass_pf.getText());
             capitalWinController.tableToModel();
             Stage stage = (Stage) entere_bt.getScene().getWindow();
-            stage.close(); // Закрываем окно входа
+            stage.close(); // Closing the entrance window
         } else {
             Message errWin = MesErrEntrance.getInstance();
             errWin.showMessage("Неверные данные");

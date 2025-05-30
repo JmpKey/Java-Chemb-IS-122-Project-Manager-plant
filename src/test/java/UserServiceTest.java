@@ -20,13 +20,6 @@ public class UserServiceTest {
         mockAppLIPC = mock(AppLIPC.class);
         mockPasswordManager = mock(PasswordManager.class);
         mockEnigma = mock(Enigma.class);
-
-        // Настройка статических методов через PowerMockito или аналогичный инструмент
-        // Например, если используете PowerMockito:
-        // PowerMockito.mockStatic(AppLIPC.class);
-        // when(AppLIPC.getInstance()).thenReturn(mockAppLIPC);
-        // PowerMockito.mockStatic(PasswordManager.class);
-        // when(PasswordManager.getInstance()).thenReturn(mockPasswordManager);
     }
 
     @Test
@@ -34,17 +27,16 @@ public class UserServiceTest {
         String user = "tu";
         String pass = "123";
 
-        // Настройка поведения моков
         when(mockAppLIPC.getDb()).thenReturn(mock(DataBase.class));
         when(mockAppLIPC.getDb().getUserIdByName(user)).thenReturn(1);
         when(mockAppLIPC.getDb().getPasswById(1)).thenReturn("LpOXZbgBPIeRCtdyp3Ig3g==");
 
         when(mockPasswordManager.decryptPassword("LpOXZbgBPIeRCtdyp3Ig3g==", user, pass)).thenReturn("decryptedPassword");
 
-        // Вызов тестируемого метода
+        // Calling the method under test
         userService.initUserData(user, pass);
 
-        // Проверка состояния после вызова метода
-        assertTrue(userService.isLoginFlag()); // Предполагается, что у вас есть метод isLoginFlag()
+        // checking the status after calling the method
+        assertTrue(userService.isLoginFlag());
     }
 }
